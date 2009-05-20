@@ -24,14 +24,14 @@ describe Admin::PostsController do
 
   describe "GET 'edit'" do
     it "should be successful" do
-      get 'edit'
+      get 'edit', :id => 1
       response.should be_success
     end
   end
 
   describe "GET 'show'" do
     it "should be successful" do
-      get 'show'
+      get 'show', :id => 1
       response.should be_success
     end
   end

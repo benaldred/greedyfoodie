@@ -6,13 +6,15 @@ module NavigationHelpers
   # step definition in webrat_steps.rb
   #
   def path_to(page_name)
+
     case page_name
     
     when /the homepage/
       '/'
     when  /the new post page/
         new_admin_post_path
-    
+    when /^post (.*)'s edit page$/i
+      edit_admin_post_path($1)
     # Add more mappings here.
     # Here is a more fancy example:
     #

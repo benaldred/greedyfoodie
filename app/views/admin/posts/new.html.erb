@@ -1,2 +1,8 @@
-<h1>Admin::Posts#new</h1>
-<p>Find me in app/views/admin/posts/new.html.erb</p>
+<% form_for :post, :url => { :action => "create" } do |f| %>
+  <%= render :partial => 'form', :object => f %>
+  <div class="btns">
+    <%= f.submit "Save Draft" %>
+    <%= f.submit "Publish" %>
+  </div>
+<% end %>
+

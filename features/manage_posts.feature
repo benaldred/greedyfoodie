@@ -9,6 +9,7 @@ Feature: Manage posts
     When I fill in "post_title" with "my amazing blog post"
     And I fill in "post_body" with "some great content"
     And I press "Save Draft"
-    Then the "post_title" field should contain "my amazing blog post"
+    Then I should be on post 1's edit page
+    And the "post_title" field should contain "my amazing blog post"
     And the "post_body" field should contain "some great content"
     And I should see "Status: Draft"
