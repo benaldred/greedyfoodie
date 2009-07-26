@@ -24,14 +24,15 @@ ActionController::Routing::Routes.draw do |map|
   #     products.resources :sales, :collection => { :recent => :get }
   #   end
 
-     map.namespace :admin do |admin|
-       admin.resources :posts
-     end
+  map.namespace :admin do |admin|
+   admin.resources :posts
+  end
+  map.connect '/admin', :controller => 'admin/posts'
+  map.root :controller => "posts"
 
-  # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  # map.root :controller => "welcome"
-
-  # See how all your routes lay out with "rake routes"
-
-
+  # routing for blog posts
+  map.post ':year/:month/:permalink', :controller => 'posts', :action => 'show', :id => :permalink
+  #map.connect ':year/:month', :controller => 'posts', :action => 'by_month', :year => /\d{4}/, :month => /\d{2}/
+  #map.connect ':year', :controller => 'posts', :action => 'by_year', :year => /\d{4}/
+  
 end

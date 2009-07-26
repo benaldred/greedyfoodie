@@ -1,2 +1,26 @@
-<h1>Admin::Posts#index</h1>
-<p>Find me in app/views/admin/posts/index.html.erb</p>
+<h1>Posts</h1>
+<table cellspacing="0" class="listing">
+  <thead>
+    <tr>
+      <th id="title" scope="col">Title</th>
+      <th id="created" scope="col" class="medium">Created</th>
+    </tr>
+  </thead>
+  <tbody>
+<% if @posts %>
+  <% @posts.each do |post| %>
+  <tr class="">
+    <td>
+      <strong class="title"><a href="<%= edit_admin_post_path(post.id) %>"><%= post.title %></a></strong>
+    </td>
+    <td><%= post.created_at %></td>
+    <td><%= link_to "edit", edit_admin_post_path(post.id) %></td>
+    <td><%= button_to "delete", admin_post_path(post.id), :method => :delete
+     %></td>
+  </tr>
+   <% end %>
+  
+  <% end %>
+</tbody>
+</table>
+      

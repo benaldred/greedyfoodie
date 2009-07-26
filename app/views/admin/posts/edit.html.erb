@@ -1,7 +1,8 @@
-<% form_for :post, :url => { :action => "update" } do |f| %>
+<% form_for :post, :url => { :action => "update" }, :html => { :method => :put } do |f| %>
   <%= render :partial => 'form', :object => f %>
+  <p>Status: <%= @post.status %></p>
   <div class="btns">
-    <%= f.submit "Save Draft" %>
-    <%= f.submit "Publish" %>
+    <%= f.submit "Update Post" %>
+    <% if @post.draft? %><%= f.submit "Publish" %><% end %>
   </div>
 <% end %>

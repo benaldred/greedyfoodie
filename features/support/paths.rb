@@ -13,8 +13,10 @@ module NavigationHelpers
       '/'
     when  /the new post page/
         new_admin_post_path
-    when /^post (.*)'s edit page$/i
+    when /^the edit page for "(.*)"$/i
       edit_admin_post_path($1)
+    when /the post admin page/
+      admin_posts_path
     # Add more mappings here.
     # Here is a more fancy example:
     #

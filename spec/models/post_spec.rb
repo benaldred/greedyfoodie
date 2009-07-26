@@ -37,5 +37,53 @@ describe Post do
     @post.permalink.should == "a-double-spaced-quouted-title-with-and"
   end
   
-  it "should create unique permalinks" 
+  it "should create unique permalinks"  do
+    @old = Post.create!(:title => "only unique permalinks", :body => "The best blog post in the world")
+    
+    @new = Post.create!(:title => "only unique permalinks", :body => "The best blog post in the world")
+    @new.permalink.should == "only-unique-permalinks-2"
+  end
+  
+  it "should create unique permalinks for n times"  do
+    @post_1 = Post.create!(:title => "only unique permalinks times", :body => "The best blog post in the world")
+    @post_2 = Post.create!(:title => "only unique permalinks times", :body => "The best blog post in the world")
+    
+    @new = Post.create!(:title => "only unique permalinks times", :body => "The best blog post in the world")
+    @new.permalink.should == "only-unique-permalinks-times-3"
+  end
+  
+  it "should update the id when title is changed" do
+    @post = Post.create!(:title => "title one", :body => "The best blog post in the world")
+    @post.title = "title two"
+    @post.save!
+    
+    Post.get("title-two").should_not == nil
+  end
+  
+  it "should update the permalink when title is changed" do
+    @post = Post.create!(:title => "title one", :body => "The best blog post in the world")
+    @post.title = "title two"
+    @post.save!
+    
+    @foo = Post.get("title-two")
+    @foo.permalink.should == "title-two"
+  end
+  
+  it "should tidy up old documents when title is changed" do
+    @post = Post.create!(:title => "title one", :body => "The best blog post in the world")
+    @post.title = "title two"
+    @post.save!
+    Post.get("title-one").should == nil
+  end
+  
+  describe "exists? method" do
+    it "should return true if document exists" do
+      @post.save!
+      Post.exists?(@post.id).should == true
+    end
+    
+    it "should return false when document no in db" do
+      Post.exists?("random-id-that-does-not-exist").should == false
+    end
+  end
 end
