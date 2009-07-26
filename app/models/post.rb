@@ -8,9 +8,11 @@ class Post < CouchRest::ExtendedDocument
   property :body
   property :status, :default => 'draft'
   property :permalink
-  timestamps!
+  property(:updated_at, :read_only => true, :cast_as => 'Time', :auto_validation => false)
+  property(:created_at, :read_only => true, :cast_as => 'Time', :auto_validation => false)
   
   save_callback :before, :set_permalink_from_title
+  save_callback :before, :set_timestamps
   
   validates_present :title, :body
   
@@ -40,6 +42,11 @@ class Post < CouchRest::ExtendedDocument
     else
       return permalink
     end
+  end
+  
+  def set_timestamps
+    self['updated_at'] = Time.now
+    self['created_at'] = self['updated_at'] if self.new_document? && self['created_at'].nil?
   end
   
   

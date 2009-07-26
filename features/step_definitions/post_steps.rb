@@ -14,8 +14,9 @@ end
 Then /^I should see the following posts?:$/ do |posts|
   posts.rows.each_with_index do |row, i|
     row.each_with_index do |cell, j|
-      response.should have_selector("table > tbody > tr:nth-child(#{i+1}) > td:nth-child(#{j+2})") { |td|
-        td.inner_text.should == cell
+      response.should have_selector("table > tbody > tr:nth-child(#{i+1}) > td:nth-child(#{j+1})") { |td|
+        text = td.inner_text.strip.chomp
+        text.should == cell
       }
     end
   end

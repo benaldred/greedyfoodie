@@ -13,7 +13,7 @@
     <td>
       <strong class="title"><a href="<%= edit_admin_post_path(post.id) %>"><%= post.title %></a></strong>
     </td>
-    <td><%= post.created_at %></td>
+    <td><%= l post.created_at.to_date, :format => :long %></td>
     <td><%= link_to "edit", edit_admin_post_path(post.id) %></td>
     <td><%= button_to "delete", admin_post_path(post.id), :method => :delete
      %></td>

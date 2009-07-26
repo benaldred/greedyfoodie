@@ -18,15 +18,15 @@ Feature: Manage posts
     
   Scenario: show a list of created posts
     Given the following posts:
-      | title          | body             |
-      | a title        | the amazing body |
-      | a rubbish post | the crap body    |
-      | a great post   | the amazing body |
+      | title        | body             | created_at                |
+      | a title      | the amazing body | 2009/06/24 14:10:27 +0000 |
+      | the best title | the amazing body | 2009/06/26 21:07:32 +0000 |
+      | a great post | the amazing body | 2009/06/26 21:07:32 +0000 |
     And I am on the post admin page
     Then I should see the following posts:
     | title          | created at       |
-    | a title        | the amazing body |
-    | a great post   | the amazing body |
+    | a great post        | 26 June 2009 |
+    | a title   | 24 June 2009 |
   
 
   Scenario: create a new post and publish
@@ -60,9 +60,10 @@ Feature: Manage posts
       | a great post   | the amazing body |
     When I delete the 2nd post
     Then I should see the following posts:
-    | title          | body             |
-    | a title        | the amazing body |
-    | a great post   | the amazing body |
+    | title          |
+    | a great post   | 
+    | a title        | 
+    
 
   
   
