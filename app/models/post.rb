@@ -10,28 +10,35 @@ class Post < CouchRest::ExtendedDocument
   property :permalink
   timestamps!
   
-  save_callback :before, :generate_permalink_from_title
+  save_callback :before, :set_permalink_from_title
   
   validates_present :title, :body
   
-  # may need better generation - unique link checking, special chars
-  def generate_permalink_from_title(postfix=1)
+  def set_permalink_from_title
+    self['permalink'] = generate_unique_permalink_from_title
     
-    id = self['_id']
-    self['permalink'] = title.downcase.gsub(/[^a-z0-9]/,'-').squeeze('-').gsub(/^\-|\-$/,'')
-    self['permalink'] = self['permalink'] + "-#{postfix}" if postfix > 1
+    unless new_record?
+      id = self['_id']
+      self['_id'] = self['permalink']
+      # remove old doc
+      post = Post.get(id)
+      post.destroy
+    end
+    
+  end
+  
+  
+  # generates a unique permalink from the title
+  def generate_unique_permalink_from_title(postfix=1)
+    
+    permalink = title.downcase.gsub(/[^a-z0-9]/,'-').squeeze('-').gsub(/^\-|\-$/,'')
+    permalink = permalink + "-#{postfix}" if postfix > 1
     
     # check to see if its unique
-    if Post.exists?(self['permalink'])
-      generate_permalink_from_title(postfix+1)
+    if Post.exists?(permalink)
+      generate_unique_permalink_from_title(postfix+1)
     else
-      unless new_record? 
-        self['_id'] = self['permalink']
-        # remove old doc
-        post = Post.get(id)
-        post.destroy
-      end 
-      return true
+      return permalink
     end
   end
   

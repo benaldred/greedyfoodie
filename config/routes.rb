@@ -25,7 +25,7 @@ ActionController::Routing::Routes.draw do |map|
   #   end
 
   map.namespace :admin do |admin|
-   admin.resources :posts
+   admin.resources :posts, :member => { :preview => :get }
   end
   map.connect '/admin', :controller => 'admin/posts'
   map.root :controller => "posts"

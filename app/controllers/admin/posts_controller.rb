@@ -9,13 +9,20 @@ class Admin::PostsController < ApplicationController
   def create
     # create the article
     @post = Post.new(params[:post])
-    @post.status = 'published' if params[:commit] == "Publish"
     
     respond_to do |format|
-      if @post.save
-        format.html { redirect_to(edit_admin_post_url(@post.id)) }
+      if params[:preview]
+        format.html {
+          Rails.cache.write("post-preview", @post)
+          redirect_to(preview_admin_post_url(@post.generate_unique_permalink_from_title))
+        }
       else
-        format.html { render :action => "new" }
+        @post.status = 'published' if params[:publish]
+        if @post.save
+          format.html { redirect_to(edit_admin_post_url(@post.id)) }
+        else
+          format.html { render :action => "new" }
+        end
       end
     end
     
@@ -28,16 +35,29 @@ class Admin::PostsController < ApplicationController
   def update
     @post = Post.get(params[:id])
     
-    respond_to do |format|
-      if @post.update_attributes(params[:post])
-        format.html { redirect_to(edit_admin_post_url(@post.id)) }
-      else
-        format.html { render :action => "edit" }
+    if params[:preview]
+      format.html {
+        Rails.cache.write("post-preview", @post)
+        redirect_to(preview_admin_post_url(@post.generate_unique_permalink_from_title))
+      }
+    else
+      respond_to do |format|
+        if @post.update_attributes(params[:post])
+          format.html { redirect_to(edit_admin_post_url(@post.id)) }
+        else
+          format.html { render :action => "edit" }
+        end
       end
     end
   end
 
-  def show
+  def preview
+    @post = Rails.cache.read("post-preview")
+    Rails.cache.delete("post-preview")
+    
+    respond_to do |format|
+      format.html { render :template => 'posts/show'}
+    end
   end
   
   def destroy

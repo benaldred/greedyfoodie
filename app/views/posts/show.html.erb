@@ -1,2 +1,6 @@
-<h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+<% if @post %>
+  <h1><%= h @post.title %></h1>
+  <div>
+    <%= h @post.body %>
+  </div>
+<% end %>

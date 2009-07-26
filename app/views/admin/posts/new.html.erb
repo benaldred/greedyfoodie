@@ -1,8 +1,10 @@
 <% form_for :post, :url => { :action => "create" } do |f| %>
   <%= render :partial => 'form', :object => f %>
   <div class="btns">
-    <%= f.submit "Save Draft" %>
-    <%= f.submit "Publish" %>
+    <%= f.submit "Preview", :name => 'preview' %>
+    <%= f.submit "Save Draft", :name => 'draft' %>
+    <%= f.submit "Publish", :name => 'publish' %>
   </div>
 <% end %>
+
 
