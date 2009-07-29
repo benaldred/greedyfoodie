@@ -27,6 +27,10 @@ config.action_mailer.delivery_method = :test
 # like if you have constraints or database-specific column types
 # config.active_record.schema_format = :sql
 
+config.gem 'selenium-client', :lib => 'selenium/client'  
+config.gem 'webrat'
+
+
 # set up the couchDB database
 require 'couchrest'
 SERVER = CouchRest.new

@@ -35,13 +35,14 @@ class Admin::PostsController < ApplicationController
   def update
     @post = Post.get(params[:id])
     
-    if params[:preview]
-      format.html {
-        Rails.cache.write("post-preview", @post)
-        redirect_to(preview_admin_post_url(@post.generate_unique_permalink_from_title))
-      }
-    else
-      respond_to do |format|
+    respond_to do |format|
+      if params[:preview]
+        format.html {
+          @new_post = Post.new(params[:post])
+          Rails.cache.write("post-preview", @new_post)
+          redirect_to(preview_admin_post_url(@new_post.generate_unique_permalink_from_title))
+        }
+      else
         if @post.update_attributes(params[:post])
           format.html { redirect_to(edit_admin_post_url(@post.id)) }
         else
@@ -65,7 +66,7 @@ class Admin::PostsController < ApplicationController
     @post.destroy
     
     respond_to do |format|
-      format.html { redirect_to(admin_posts_url) }
+      format.html { redirect_to(admin_posts_path) }
     end
   end
 

@@ -4,5 +4,6 @@
   <div class="btns">
     <%= f.submit "Update Post" %>
     <% if @post.draft? %><%= f.submit "Publish" %><% end %>
+    <%= f.submit "Preview", :name => 'preview' %>
   </div>
 <% end %>

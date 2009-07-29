@@ -17,6 +17,9 @@ module NavigationHelpers
       edit_admin_post_path($1)
     when /the post admin page/
       admin_posts_path
+    when /^the preview page for "(.*)"$/i
+      preview_admin_post_path($1)
+      
     # Add more mappings here.
     # Here is a more fancy example:
     #
