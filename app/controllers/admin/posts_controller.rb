@@ -61,6 +61,14 @@ class Admin::PostsController < ApplicationController
     end
   end
   
+  def post_preview
+    @post = Post.new(:title => params[:post_title], :body => params[:post_body])
+    
+    respond_to do |format|
+      format.html { render :template => 'posts/show'}
+    end
+  end
+  
   def destroy
     @post = Post.get(params[:id])
     @post.destroy

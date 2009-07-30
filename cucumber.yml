@@ -1,3 +1,5 @@
-default: --exclude enhanced
+default: -e enhanced
+d: -e enhanced
 plain: -e enhanced -r features/support/env.rb -r features/step_definitions features
+s: -r features/support/env.rb -r features/support/enhanced.rb -r features/step_definitions features/enhanced
 selenium: -r features/support/env.rb -r features/support/enhanced.rb -r features/step_definitions features/enhanced

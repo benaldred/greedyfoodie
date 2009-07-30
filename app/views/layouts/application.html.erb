@@ -6,7 +6,8 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <%= stylesheet_link_tag 'master', :media => 'all', :cache => false %>
   <script src="/javascripts/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
-  <%#= yield :head %>
+  <script src="/javascripts/application.js" type="text/javascript" charset="utf-8"></script>
+  <%= yield :head %>
 </head>
 <body class="<%#= body_class %>">
   <div id="header" class="clearfix">
