@@ -1,9 +1,13 @@
+<% content_for :head do%>
+  <%= javascript_tag "window._token = '#{form_authenticity_token}';" %>
+<% end %>
+
 <% form_for :post, :url => { :action => "create" } do |f| %>
   <%= render :partial => 'form', :object => f %>
   <div class="btns">
-    <%= f.submit "Preview", :name => 'preview' %>
-    <%= f.submit "Save Draft", :name => 'draft' %>
     <%= f.submit "Publish", :name => 'publish' %>
+    <%= f.submit "Save Draft", :name => 'draft' %>
+    <%= f.submit "Preview", :name => 'preview', :id => "post_preview" %>
   </div>
 <% end %>
 

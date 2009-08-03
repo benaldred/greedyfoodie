@@ -10,3 +10,10 @@ When /^I follow "([^\"]*)" and wait$/ do |link|
   click_link(link)
   selenium.wait_for_page
 end
+
+When /^I press "([^\"]*)" to open new window$/ do |button|
+  selenium.get_eval("this.browserbot.getCurrentWindow().open('', 'postpreview')")
+  click_button(button)
+  selenium.wait_for_popup("postpreview", 300)
+  selenium.select_window("postpreview")
+end

@@ -23,7 +23,7 @@ Then /^I should see the following posts?:$/ do |posts|
 end
 
 Then /^I should see the title "([^\"]*)"$/ do |title|
-  response.should have_selector("h1") { |text| 
-    text.inner_text.should == title
+  response.should have_xpath("//h1") { |text| 
+    text.inner_text.should contain(title)
   }
 end

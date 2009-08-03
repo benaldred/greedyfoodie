@@ -8,20 +8,18 @@ Feature: Preview posts
     Given I am on the new post page
     When I fill in "post_title" with "my amazing blog post"
     And I fill in "post_body" with "some great content"
-    And I press "Preview" and wait
-    Then I should be on the preview page for "my-amazing-blog-post"
-    And I should see the title "my amazing blog post"
+    And I press "Preview" to open new window
+    Then I should see the title "my amazing blog post"
     And I should see "some great content"
     
   Scenario: preview an existing post
     Given the following post:
       | title   | body             |
-      | a title | the amazing body |
+      | title foo | the amazing body |
     And I am on the post admin page
     When I follow "edit" and wait
-    And I press "Preview" and wait
-    Then I should be on the preview page for "another-title"
-    And I should see the title "another title"
-    And I should see "different text"
+    And I press "Preview" to open new window
+    Then I should see "title foo"
+    And I should see "the amazing body"
   
   
