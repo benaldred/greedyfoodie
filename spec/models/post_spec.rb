@@ -86,4 +86,17 @@ describe Post do
       Post.exists?("random-id-that-does-not-exist").should == false
     end
   end
+  
+  describe "draft? method" do
+    it "should return true if post is a draft" do
+      @post = Post.create!(:title => "title one", :body => "The best blog post in the world")
+      @post.draft?.should == true
+    end
+    
+    it "should return true if post is not a draft" do
+      @post = Post.create!(:title => "title one", :body => "The best blog post in the world")
+      @post.status = "publised"
+      @post.draft?.should == false
+    end
+  end
 end
