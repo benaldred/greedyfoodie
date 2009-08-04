@@ -19,6 +19,8 @@ module NavigationHelpers
       admin_posts_path
     when /^the preview page for "(.*)"$/i
       preview_admin_post_path($1)
+    when /the index page/
+      root_path
       
     # Add more mappings here.
     # Here is a more fancy example:

@@ -1,2 +1,9 @@
-<h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+<% if @posts %>
+  <% @posts.each do |post| %>
+    <div class="post hentry">
+      <h2><%= h post.title %></h2>
+      <p><%= l post.created_at.to_date, :format => :long %></p>
+      <div><%= h post.body %></div>
+    </div>
+  <% end %>
+<% end %>

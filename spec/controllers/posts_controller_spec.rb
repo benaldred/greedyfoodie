@@ -2,9 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PostsController do
 
-  #Delete these examples and add some real ones
-  it "should use PostsController" do
-    controller.should be_an_instance_of(PostsController)
+  def mock_post(stubs={})
+    @mock_post ||= mock(Post, stubs)
   end
 
 
@@ -12,6 +11,12 @@ describe PostsController do
     it "should be successful" do
       get 'index'
       response.should be_success
+    end
+    
+    it "assigns collection for the view" do
+      Post.stub!(:by_created_at).and_return([mock_post])
+      get :index
+      assigns[:posts].should == [mock_post]
     end
   end
 

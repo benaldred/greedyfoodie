@@ -2,6 +2,8 @@ class Post < CouchRest::ExtendedDocument
   use_database DB
   include ::CouchRest::Validation
   
+  view_by :created_at, :descending => true
+  
   unique_id :permalink
   
   property :title

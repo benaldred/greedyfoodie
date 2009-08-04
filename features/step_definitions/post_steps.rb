@@ -22,8 +22,22 @@ Then /^I should see the following posts?:$/ do |posts|
   end
 end
 
+# each post has .hentry class
+Then /^I should see the following posts displayed:$/ do |posts|
+  posts.hashes.each_with_index do |row, i|
+    response.should have_selector(".post:nth-of-type(#{i+1})") { |post|
+      post.should have_selector("h2", :content => row['title'])
+      post.should contain(row['body'])
+      post.should contain(row['created_at'])
+    }
+  end
+end
+
+Then /^I should only see "([^\"]*)" posts displayed$/ do |i|
+  response.should_not have_selector(".post:nth-of-type(#{i.to_i+1})")
+end
+
+
 Then /^I should see the title "([^\"]*)"$/ do |title|
-  response.should have_xpath("//h1") { |text| 
-    text.inner_text.should contain(title)
-  }
+  response.should have_selector("h1", :content => title)
 end
