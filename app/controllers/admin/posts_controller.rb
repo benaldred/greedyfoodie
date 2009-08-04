@@ -19,7 +19,7 @@ class Admin::PostsController < ApplicationController
       else
         @post.status = 'published' if params[:publish]
         if @post.save
-          format.html { redirect_to(edit_admin_post_url(@post)) }
+          format.html { redirect_to(edit_admin_post_url(@post.permalink)) }
         else
           format.html { render :action => "new" }
         end
@@ -44,7 +44,7 @@ class Admin::PostsController < ApplicationController
         }
       else
         if @post.update_attributes(params[:post])
-          format.html { redirect_to(edit_admin_post_url(@post)) }
+          format.html { redirect_to(edit_admin_post_url(@post.permalink)) }
         else
           format.html { render :action => "edit" }
         end

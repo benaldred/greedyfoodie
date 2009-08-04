@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe Admin::PostsController do
   
   def mock_post(stubs={})
-   @mock_post ||= mock(Post, stubs)
+    @mock_post ||= mock(Post, stubs.merge!({:permalink => 'foo'}))
   end
 
   describe "GET 'index'" do
@@ -47,7 +47,7 @@ describe Admin::PostsController do
       it "redirect to edit after creation" do
         Post.should_receive(:new).with({'these' => 'params'}).and_return(mock_post(:save => true, :status= => "published"))
         post :create, :post => {:these => 'params'}, :publish => 'Publish'
-        response.should redirect_to(edit_admin_post_url(mock_post))
+        response.should redirect_to(edit_admin_post_url(mock_post.permalink))
       end
       
       it "should set status to published when published" do
@@ -73,6 +73,22 @@ describe Admin::PostsController do
       end
       
     end
+    
+    describe "rendering preview" do
+      
+      it "should write post to cache as 'post-preview'" do
+        Post.should_receive(:new).with({'these' => 'params'}).and_return(mock_post(:generate_unique_permalink_from_title => 'foo'))
+        post :create, :post => {:these => 'params'}, :preview => 'Preview'
+        Rails.cache.read("post-preview").should == mock_post
+      end
+        
+      it "should redirect to preview page" do
+        Post.should_receive(:new).with({'these' => 'params'}).and_return(mock_post(:generate_unique_permalink_from_title => 'foo'))
+        post :create, :post => {:these => 'params'}, :preview => 'Preview'
+        response.should redirect_to(preview_admin_post_url(mock_post.permalink))
+      end
+    end
+    
   end
 
   describe "PUT udpate" do
@@ -94,7 +110,7 @@ describe Admin::PostsController do
       it "redirects to the post" do
         Post.stub!(:get).and_return(mock_post(:update_attributes => true))
         put :update, :id => "1"
-        response.should redirect_to(edit_admin_post_url(mock_post))
+        response.should redirect_to(edit_admin_post_url(mock_post.permalink))
       end
 
     end
@@ -120,7 +136,66 @@ describe Admin::PostsController do
       end
 
     end
+    
+    describe "rendering preview" do
+      before do
+        Post.stub!(:get).and_return(mock_post(:generate_unique_permalink_from_title => 'foo'))
+        Post.should_receive(:new).with({'these' => 'params'}).and_return(mock_post(:generate_unique_permalink_from_title => 'foo'))
+      end
+      
+      it "should create fresh post and expose as @new_post" do
+        post :update, :id => "foo", :post => {:these => 'params'}, :preview => 'Preview'
+        assigns(:new_post).should equal(mock_post)
+      end
+      
+      it "should write post to cache as 'post-preview'" do
+        post :update, :id => "foo", :post => {:these => 'params'}, :preview => 'Preview'
+        Rails.cache.read("post-preview").should == mock_post
+      end
+        
+      it "should redirect to preview page" do
+        post :update, :id => "foo", :post => {:these => 'params'}, :preview => 'Preview'
+        response.should redirect_to(preview_admin_post_url(mock_post.permalink))
+      end
+    end
 
+  end
+  
+  describe "GET preview" do
+    
+    it "exposes a post initilaized from the cache as @post" do
+      Rails.cache.write("post-preview", mock_post)
+      get :preview, :id => 'foo'
+      assigns(:post).should equal(mock_post)
+    end
+    
+    it "should clear the Rails cache" do
+      Rails.cache.write("post-preview", mock_post)
+      get :preview, :id => 'foo'
+      Rails.cache.read("post-preview").should == nil
+      
+    end
+    
+    it "should render the 'posts/show' template" do
+      Rails.cache.write("post-preview", mock_post)
+      get :preview, :id => 'foo'
+      response.should render_template('posts/show')
+    end
+  end
+  
+  describe "POST post_preview" do
+    
+    it "exposes a newly created post as @post" do
+      Post.should_receive(:new).with({:title => 'foo', :body => 'bar'}).and_return(mock_post)
+      post :post_preview, :post_title => 'foo', :post_body => 'bar'
+      assigns(:post).should equal(mock_post)
+    end
+    
+    it "should render the 'posts/show' template" do
+      Post.stub!(:new).and_return(mock_post)
+      post :post_preview, :post => {}
+      response.should render_template('posts/show')
+    end
   end
 
   describe "DELETE destroy" do
@@ -138,6 +213,5 @@ describe Admin::PostsController do
     end
 
   end
-:post
 
 end
