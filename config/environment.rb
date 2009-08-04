@@ -7,9 +7,9 @@ RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
-  config.gem 'ruby-openid', :lib => 'openid'
-  config.gem 'mattetti-couchrest', :lib => 'couchrest'
-  config.gem "svenfuchs-i18n", :lib => "i18n", :source => "http://gems.github.com"
+  #config.gem 'ruby-openid', :lib => 'openid'
+  #config.gem 'mattetti-couchrest', :lib => 'couchrest'
+  #config.gem "svenfuchs-i18n", :lib => "i18n", :source => "http://gems.github.com"
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
@@ -43,6 +43,3 @@ Rails::Initializer.run do |config|
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   config.i18n.default_locale = :en
 end
-
-
-# init the couch rest server
