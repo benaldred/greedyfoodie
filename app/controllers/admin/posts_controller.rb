@@ -43,6 +43,7 @@ class Admin::PostsController < ApplicationController
           redirect_to(preview_admin_post_url(@new_post.generate_unique_permalink_from_title))
         }
       else
+        @post.status = 'published' if params[:publish]
         if @post.update_attributes(params[:post])
           format.html { redirect_to(edit_admin_post_url(@post.permalink)) }
         else

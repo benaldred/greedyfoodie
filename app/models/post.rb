@@ -3,12 +3,13 @@ class Post < CouchRest::ExtendedDocument
   include ::CouchRest::Validation
   
   view_by :created_at, :descending => true
+  view_by :status, :created_at, :descending => true
   
-  view_by :published,
+  view_by :latest_published, :descending => true,
     :map =>
      "function(doc) {
-       if (doc['couchrest-type'] == 'Post') {
-        emit(doc['_id'],1);
+       if ((doc['couchrest-type'] == 'Post') && (doc['status'] == 'published') && doc['created_at']) {
+        emit(doc['created_at'], null);
        }
      }"
   
@@ -27,32 +28,41 @@ class Post < CouchRest::ExtendedDocument
   validates_present :title, :body
   
   def set_permalink_from_title
-    self['permalink'] = generate_unique_permalink_from_title
+
+    self['permalink'] = generate_unique_permalink_from_title if new_record? || title_changed?
     
-    unless new_record?
-      id = self['_id']
-      self['_id'] = self['permalink']
-      # remove old doc
-      post = Post.get(id)
-      post.destroy
-    end
-    
+    # if the title has changed and its an edit
+    # set a new id and clean up the old doc
+    # TODO look at copy method in couch rest
+    cleanup_old_doc if title_changed? and not new_record?  
   end
-  
   
   # generates a unique permalink from the title
   def generate_unique_permalink_from_title(postfix=1)
     
-    permalink = title.downcase.gsub(/[^a-z0-9]/,'-').squeeze('-').gsub(/^\-|\-$/,'')
-    permalink = permalink + "-#{postfix}" if postfix > 1
+    permalink = title_to_permalink(title)
+    permalink = "#{permalink}-#{postfix}" if postfix > 1
     
-    # check to see if its unique
+
+    # if post exists call again adding postfix
+    # if currnt post exists then it will find itself anf +1
     if Post.exists?(permalink)
-      generate_unique_permalink_from_title(postfix+1)
+      generate_unique_permalink_from_title(postfix+1) 
     else
-      return permalink
+     return permalink
     end
   end
+  
+  # Class Methods
+  # -------------------------------------------------------
+  
+  # TODO see if there is a really quick way to check in couch to see if an item exists
+  def self.exists?(id)
+    !get(id).nil?
+  end
+  
+  
+
   
   def set_timestamps
     self['updated_at'] = Time.now
@@ -64,12 +74,26 @@ class Post < CouchRest::ExtendedDocument
     self['status'] == 'draft'
   end
   
-  # Class Methods
-  # -------------------------------------------------------
+  private
   
-  # TODO see if there is a really quick way to check in couch to see if an item exists
-  def self.exists?(id)
-    !get(id).nil?
+  def cleanup_old_doc
+    # store the old id 
+    id = self['_id']
+    
+    #keep the same doc but set a new id
+    self['_id'] = self['permalink']
+    
+    # remove old doc
+    post = Post.get(id)
+    post.destroy
+  end
+  
+  def title_changed?
+    (self['_id'] != title_to_permalink(self['title']))
+  end
+  
+  def title_to_permalink(text)
+    text.downcase.gsub(/[^a-z0-9]/,'-').squeeze('-').gsub(/^\-|\-$/,'')
   end
   
 end

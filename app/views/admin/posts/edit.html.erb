@@ -7,7 +7,7 @@
   <p>Status: <%= @post.status %></p>
   <div class="btns">
     <%= f.submit "Update Post" %>
-    <% if @post.draft? %><%= f.submit "Publish" %><% end %>
+    <% if @post.draft? %><%= f.submit "Publish", :name => 'publish' %><% end %>
     <%= f.submit "Preview", :name => 'preview', :id => "post_preview" %>
   </div>
 <% end %>

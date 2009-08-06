@@ -16,6 +16,21 @@ Feature: Manage posts
     And I should see an "Update Post" button
     And I should see a "Publish" button
     
+  Scenario: create a new draft post with a title that already exists
+    Given the following post:
+      | title   | body             |
+      | a title | the amazing body |
+    And I am on the new post page
+    When I fill in "post_title" with "a title"
+    And I fill in "post_body" with "some great content"
+    And I press "Save Draft"
+    Then I should be on the edit page for "a-title-2"
+    And the "Title" field should contain "a title"
+    And the "Body" field should contain "some great content"
+    And I should see "Status: draft"
+    And I should see an "Update Post" button
+    And I should see a "Publish" button
+    
   Scenario: show a list of created posts
     Given the following posts:
       | title        | body             | created_at                |
@@ -45,12 +60,50 @@ Feature: Manage posts
       | a title | the amazing body |
     And I am on the post admin page
     When I follow "edit"
+    And I fill in "body" with "the amazing body and some more text"
+    And I press "Update Post"
+    Then I should be on the edit page for "a-title"
+    Then the "title" field should contain "a title"
+    And the "body" field should contain "the amazing body and some more text"
+  
+  Scenario: edit an existing post, changing the title
+    Given the following post:
+      | title   | body             |
+      | a title | the amazing body |
+    And I am on the post admin page
+    When I follow "edit"
     And I fill in "title" with "another title"
     And I fill in "body" with "different text"
     And I press "Update Post"
     Then I should be on the edit page for "another-title"
     Then the "title" field should contain "another title"
     And the "body" field should contain "different text"
+    
+  Scenario: edit an existing post, changing the title to one that already exists
+    Given the following post:
+      | title   | body             |
+      | a title foo | the amazing body |
+      | a title | the amazing body |
+    And I am on the post admin page
+    When I follow "edit"
+    And I fill in "title" with "another title"
+    And I fill in "body" with "different text"
+    And I press "Update Post"
+    Then I should be on the edit page for "another-title"
+    Then the "title" field should contain "another title"
+    And the "body" field should contain "different text"
+    
+  Scenario: publish an existing post
+    Given the following post:
+      | title   | body             | status |
+      | a title | the amazing body | draft  |
+    And I am on the post admin page
+    When I follow "edit"
+    And I press "Publish"
+    Then I should be on the edit page for "a-title"
+    Then the "title" field should contain "a title"
+    And the "body" field should contain "the amazing body"
+    And I should see "Status: published"
     
   Scenario: Delete a post
     Given the following posts:

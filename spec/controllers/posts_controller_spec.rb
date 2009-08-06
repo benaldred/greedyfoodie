@@ -14,7 +14,7 @@ describe PostsController do
     end
     
     it "assigns collection for the view" do
-      Post.stub!(:by_created_at_and_published).and_return([mock_post])
+      Post.stub!(:by_latest_published).and_return([mock_post])
       get :index
       assigns[:posts].should == [mock_post]
     end
