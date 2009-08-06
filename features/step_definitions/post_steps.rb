@@ -33,6 +33,12 @@ Then /^I should see the following posts displayed:$/ do |posts|
   end
 end
 
+Then /^I should not see the any posts displayed$/ do
+  response.should_not have_selector(".post:nth-of-type(1)")
+end
+
+
+
 Then /^I should only see "([^\"]*)" posts displayed$/ do |i|
   response.should_not have_selector(".post:nth-of-type(#{i.to_i+1})")
 end

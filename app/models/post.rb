@@ -4,6 +4,14 @@ class Post < CouchRest::ExtendedDocument
   
   view_by :created_at, :descending => true
   
+  view_by :published,
+    :map =>
+     "function(doc) {
+       if (doc['couchrest-type'] == 'Post') {
+        emit(doc['_id'],1);
+       }
+     }"
+  
   unique_id :permalink
   
   property :title

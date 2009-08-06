@@ -1,4 +1,4 @@
-<% if @posts %>
+<% unless @posts.empty? %>
   <% @posts.each do |post| %>
     <div class="post hentry">
       <h2><%= h post.title %></h2>
