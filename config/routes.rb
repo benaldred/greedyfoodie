@@ -31,8 +31,10 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => "posts"
 
   # routing for blog posts
-  map.post ':year/:month/:permalink', :controller => 'posts', :action => 'show', :id => :permalink
-  #map.connect ':year/:month', :controller => 'posts', :action => 'by_month', :year => /\d{4}/, :month => /\d{2}/
-  #map.connect ':year', :controller => 'posts', :action => 'by_year', :year => /\d{4}/
+  map.connect ':year', :controller => 'posts', :action => 'by_year', :year => /\d{4}/
+  map.connect ':year/:month', :controller => 'posts', :action => 'by_month', :year => /\d{4}/, :month => /\d{2}/
+  map.post ':year/:month/:id', :controller => 'posts', :action => 'show'
+  
+  map.connect '/404', :controller => 'posts'
   
 end

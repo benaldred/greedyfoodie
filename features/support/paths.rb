@@ -21,6 +21,12 @@ module NavigationHelpers
       preview_admin_post_path($1)
     when /the index page/
       root_path
+    when /^the post "(.*)"$/i
+      $1
+    when /^the page for "(.*)"$/i
+      $1
+    when /^the 404 page$/
+      "/404"
       
     # Add more mappings here.
     # Here is a more fancy example:

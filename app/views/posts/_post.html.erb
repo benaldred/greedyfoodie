@@ -1,0 +1,5 @@
+<div class="post hentry">
+  <h2><%= link_to_post(post) %></h2>
+  <p><%= l post.created_at.to_date, :format => :long %></p>
+  <div><%= h post.body %></div>
+</div>

@@ -22,7 +22,7 @@ Then /^I should see the following posts?:$/ do |posts|
   end
 end
 
-# each post has .hentry class
+# look through a list of posts
 Then /^I should see the following posts displayed:$/ do |posts|
   posts.hashes.each_with_index do |row, i|
     response.should have_selector(".post:nth-of-type(#{i+1})") { |post|
@@ -33,11 +33,18 @@ Then /^I should see the following posts displayed:$/ do |posts|
   end
 end
 
+Then /^I should see the following post displayed:$/ do |post|
+  post = post.hashes[0]
+  response.should have_selector(".post:nth-of-type(1)") { |item|
+    item.should have_selector("h1", :content => post['title'])
+    item.should contain(post['body'])
+    item.should contain(post['created_at'])
+  }
+end
+
 Then /^I should not see the any posts displayed$/ do
   response.should_not have_selector(".post:nth-of-type(1)")
 end
-
-
 
 Then /^I should only see "([^\"]*)" posts displayed$/ do |i|
   response.should_not have_selector(".post:nth-of-type(#{i.to_i+1})")

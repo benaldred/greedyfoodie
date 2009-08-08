@@ -87,16 +87,68 @@ describe Post do
     end
   end
   
-  describe "draft? method" do
-    it "should return true if post is a draft" do
-      @post = Post.create!(:title => "title one", :body => "The best blog post in the world")
-      @post.draft?.should == true
+  it "draft? should return true if post is a draft" do
+    @post = Post.create!(:title => "title one", :body => "The best blog post in the world")
+    @post.draft?.should == true
+  end
+  
+  it "published? should return false if post is a draft" do
+    @post = Post.create!(:title => "title one", :body => "The best blog post in the world")
+    @post.published?.should == false
+  end
+  
+  it "draft? should return false if post is not a draft" do
+    @post = Post.create!(:title => "title one", :body => "The best blog post in the world")
+    @post.status = "published"
+    @post.draft?.should == false
+  end
+  
+  it "published? should return true if post is a published" do
+    @post = Post.create!(:title => "title one", :body => "The best blog post in the world")
+    @post.status = "published"
+    @post.published?.should == true
+  end
+  
+  describe "year_and_month method" do
+    it "should return the year and month as numbers" do
+       @post = Post.create!(:title => "title one", :body => "The best blog post in the world", :created_at => "2009/06/24 14:10:27 +0000")
+       @post.year_and_month.should == ["2009", "06"]
+    end
+  end
+  
+  describe "verify date" do
+    it "should return true if the posts date matches given values" do
+      @post = Post.create!(:title => "title one", :body => "The best blog post in the world", :created_at => "2009/06/24 14:10:27 +0000")
+      @post.verify_date?(:year => "2009", :month => "06").should == true
+    end
+
+    it "should return false if the posts month differs from given value" do
+      @post = Post.create!(:title => "title one", :body => "The best blog post in the world", :created_at => "2009/06/24 14:10:27 +0000")
+      @post.verify_date?(:year => "2009", :month => "10").should == false
+    end
+
+    it "should return false if the posts year differs from given value" do
+      @post = Post.create!(:title => "title one", :body => "The best blog post in the world", :created_at => "2009/06/24 14:10:27 +0000")
+      @post.verify_date?(:year => "2002", :month => "06").should == false
+    end
+  end
+  
+  describe "find_by..." do
+    
+    before do
+      reset_test_db!
+      Post.create!(:title => "title one", :body => "The best blog post in the world", :created_at => "2009/06/24 14:10:27 +0000", :status => 'published')
+      Post.create!(:title => "title two", :body => "The best blog post in the world", :created_at => "2008/06/24 14:10:27 +0000", :status => 'published')
     end
     
-    it "should return true if post is not a draft" do
-      @post = Post.create!(:title => "title one", :body => "The best blog post in the world")
-      @post.status = "publised"
-      @post.draft?.should == false
+    it "_year should find posts by its year" do
+      @posts = Post.find_by_year('2009')
+      @posts.size.should == 1
+    end
+    
+    it "_year_and_month should find posts by its year and month" do
+      @posts = Post.find_by_year_and_month('2009', '06')
+      @posts.size.should == 1
     end
   end
 end

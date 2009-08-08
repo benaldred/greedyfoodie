@@ -2,16 +2,9 @@ class Post < CouchRest::ExtendedDocument
   use_database DB
   include ::CouchRest::Validation
   
-  view_by :created_at, :descending => true
-  view_by :status, :created_at, :descending => true
-  
-  view_by :latest_published, :descending => true,
-    :map =>
-     "function(doc) {
-       if ((doc['couchrest-type'] == 'Post') && (doc['status'] == 'published') && doc['created_at']) {
-        emit(doc['created_at'], null);
-       }
-     }"
+  # -------------------
+  #  Properties
+  # -------------------
   
   unique_id :permalink
   
@@ -53,16 +46,41 @@ class Post < CouchRest::ExtendedDocument
     end
   end
   
-  # Class Methods
-  # -------------------------------------------------------
+  # -------------------
+  #  Views
+  # -------------------
   
-  # TODO see if there is a really quick way to check in couch to see if an item exists
+  view_by :created_at, :descending => true
+  view_by :status, :created_at, :descending => true
+  
+  # it is implied that all published articles are 
+  # ordered by date, descending
+  view_by :published, :descending => true,
+    :map =>
+     "function(doc) {
+       if ((doc['couchrest-type'] == 'Post') && (doc['status'] == 'published') && doc['created_at']) {
+        datetime = doc.created_at;
+        year = parseInt(datetime.substr(0, 4));
+        month = parseInt(datetime.substr(5, 2), 10);
+        day = parseInt(datetime.substr(8, 2), 10);
+        emit([year, month, day], 1);
+       }
+     }"
+
+  def self.find_by_year(year)
+    year = year.to_i
+    self.by_published(:startkey => [year,12,31], :endkey => [year,1,1])
+  end
+  
+  def self.find_by_year_and_month(year, month)
+    month = month.to_i
+    year = year.to_i
+    self.by_published(:startkey => [year,month,Time.days_in_month(month)], :endkey => [year,month,1])
+  end
+  
   def self.exists?(id)
     !get(id).nil?
   end
-  
-  
-
   
   def set_timestamps
     self['updated_at'] = Time.now
@@ -72,6 +90,18 @@ class Post < CouchRest::ExtendedDocument
   
   def draft?
     self['status'] == 'draft'
+  end
+  
+  def published?
+    self['status'] == 'published'
+  end
+  
+  def year_and_month
+    [self['created_at'].year.to_s, self['created_at'].strftime("%m")]
+  end
+  
+  def verify_date?(options = {})
+    (self['created_at'].year.to_s == options[:year]) && (self['created_at'].strftime("%m") == options[:month])
   end
   
   private

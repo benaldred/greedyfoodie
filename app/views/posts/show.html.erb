@@ -1,6 +1,9 @@
 <% if @post %>
+<div class="post">
   <h1><%= h @post.title %></h1>
+  <p><%=  display_post_date(@post) %></p>
   <div>
     <%= h @post.body %>
   </div>
+</div>
 <% end %>
