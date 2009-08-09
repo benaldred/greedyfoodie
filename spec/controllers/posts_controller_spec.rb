@@ -75,5 +75,18 @@ describe PostsController do
       assigns[:posts].should == [mock_post]
     end
   end
+  
+  describe "GET 'archives'" do
+    it "should be successful" do
+      get :archives
+      response.should be_success
+    end
+    
+    it "should assign collection of posts grouped by month as @posts" do
+      Post.stub!(:sum_by_month).and_return([mock_post])
+      get :archives
+      assigns[:post_sum_by_month].should == [mock_post]
+    end
+  end
 
 end

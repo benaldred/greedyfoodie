@@ -19,6 +19,14 @@ class PostsController < ApplicationController
     end
   end
   
+  def archives
+    @post_sum_by_month = Post.sum_by_month
+    
+    respond_to do |format|
+      format.html # archives.html.erb
+    end
+  end
+  
   def by_year
     @posts = Post.find_by_year(params[:year])
     

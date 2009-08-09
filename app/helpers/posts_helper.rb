@@ -4,8 +4,18 @@ module PostsHelper
     link_to h(post.title), "#{year}/#{month}/#{post.permalink}"
   end
   
-  def display_post_date(post)
+  def post_date(post)
     date = (post.new_record?) ? Time.now : post.created_at.to_date
     l(date, :format => :long)
+  end
+  
+  def by_month_list(collection)
+    list = []
+    collection['rows'].each do |row|
+      year, month = row["key"]
+      date = Date.new(year, month)
+      list << content_tag(:li,  link_to(date.strftime("%B %Y"), date.strftime("/%Y/%m")) + " " + content_tag(:span, row["value"]))
+    end
+    list.join("\n  ")
   end
 end

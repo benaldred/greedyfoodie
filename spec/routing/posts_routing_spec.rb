@@ -18,6 +18,10 @@ describe PostsController do
     it "should map by_month" do
       route_for(:controller => "posts", :action => "by_month", :year => "2009", :month => "06").should == "/2009/06"
     end
+    
+    it "should map archives" do
+      route_for(:controller => "posts", :action => "archives").should == "/archives"
+    end
   end
   
   describe "route recognition" do
@@ -31,6 +35,10 @@ describe PostsController do
     
     it "generates params for #by_month" do
       params_from(:get, "/2009/06").should == {:controller => "posts", :action => "by_month", :year => "2009", :month => "06"}
+    end
+    
+    it "generates params for #archives" do
+      params_from(:get, "/archives").should == {:controller => "posts", :action => "archives"}
     end
   end
 

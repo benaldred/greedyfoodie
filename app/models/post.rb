@@ -65,7 +65,11 @@ class Post < CouchRest::ExtendedDocument
         day = parseInt(datetime.substr(8, 2), 10);
         emit([year, month, day], 1);
        }
-     }"
+     }",
+     :reduce => 
+       "function(keys, values, rereduce) {
+         return sum(values);
+       }"
 
   def self.find_by_year(year)
     year = year.to_i
@@ -76,6 +80,13 @@ class Post < CouchRest::ExtendedDocument
     month = month.to_i
     year = year.to_i
     self.by_published(:startkey => [year,month,Time.days_in_month(month)], :endkey => [year,month,1])
+  end
+  
+  # sum_by_month
+  # 
+  # returns
+  def self.sum_by_month
+    self.by_published :reduce => true, :group_level => 2
   end
   
   def self.exists?(id)
