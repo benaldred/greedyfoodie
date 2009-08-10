@@ -28,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
    admin.resources :posts, :member => { :preview => :get }, :collection => {:post_preview => :post}
   end
   map.admin_root '/admin', :controller => 'admin/posts'
+  
   map.root :controller => "posts"
 
   # routing for blog posts
@@ -35,6 +36,8 @@ ActionController::Routing::Routes.draw do |map|
   map.by_year ':year', :controller => 'posts', :action => 'by_year', :year => /\d{4}/
   map.by_month ':year/:month', :controller => 'posts', :action => 'by_month', :year => /\d{4}/, :month => /\d{2}/
   map.post ':year/:month/:id', :controller => 'posts', :action => 'show'
+  
+  map.resources :sitemap, :controller => 'sitemap', :only => :index
   
   map.four_oh_four '/404', :controller => 'posts'
   
