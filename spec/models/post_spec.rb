@@ -116,6 +116,13 @@ describe Post do
     end
   end
   
+  describe "url " do
+    it "should return permlink with year and month" do
+       @post = Post.create!(:title => "title one", :body => "The best blog post in the world", :created_at => "2009/06/24 14:10:27 +0000")
+       @post.url.should == "2009/06/title-one"
+    end
+  end
+  
   describe "verify date" do
     it "should return true if the posts date matches given values" do
       @post = Post.create!(:title => "title one", :body => "The best blog post in the world", :created_at => "2009/06/24 14:10:27 +0000")

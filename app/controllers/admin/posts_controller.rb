@@ -1,4 +1,5 @@
-class Admin::PostsController < ApplicationController
+class Admin::PostsController < Admin::AdminController
+  
   def index
     @posts = Post.all
   end
@@ -13,7 +14,7 @@ class Admin::PostsController < ApplicationController
     respond_to do |format|
       if params[:preview]
         format.html {
-          Rails.cache.write("post-preview", @post)
+          session["post_preview"] =  @post
           redirect_to(preview_admin_post_url(@post.generate_unique_permalink_from_title))
         }
       else
@@ -39,7 +40,7 @@ class Admin::PostsController < ApplicationController
       if params[:preview]
         format.html {
           @new_post = Post.new(params[:post])
-          Rails.cache.write("post-preview", @new_post)
+          session["post_preview"] = @new_post
           redirect_to(preview_admin_post_url(@new_post.generate_unique_permalink_from_title))
         }
       else
@@ -54,8 +55,8 @@ class Admin::PostsController < ApplicationController
   end
 
   def preview
-    @post = Rails.cache.read("post-preview")
-    Rails.cache.delete("post-preview")
+    @post = session["post_preview"]
+    session["post_preview"] = nil
     
     respond_to do |format|
       format.html { render :template => 'posts/show'}

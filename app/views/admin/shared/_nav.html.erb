@@ -1,0 +1,7 @@
+<ul class="tabs">
+  <li class="n-home"><%= link_to "Home", admin_root_path %></li>
+  <li class="n-posts"><%= link_to "Posts", admin_posts_path %></li>
+</ul>
+<div class="subnav clearfix">
+  <%= submenu_items(controller.controller_name) %>
+</div>

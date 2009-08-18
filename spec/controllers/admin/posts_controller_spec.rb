@@ -76,10 +76,10 @@ describe Admin::PostsController do
     
     describe "rendering preview" do
       
-      it "should write post to cache as 'post-preview'" do
+      it "should write post to session as 'post_preview'" do
         Post.should_receive(:new).with({'these' => 'params'}).and_return(mock_post(:generate_unique_permalink_from_title => 'foo'))
         post :create, :post => {:these => 'params'}, :preview => 'Preview'
-        Rails.cache.read("post-preview").should == mock_post
+        session["post_preview"].should == mock_post
       end
         
       it "should redirect to preview page" do
@@ -148,9 +148,9 @@ describe Admin::PostsController do
         assigns(:new_post).should equal(mock_post)
       end
       
-      it "should write post to cache as 'post-preview'" do
+      it "should write post to session as 'post_preview'" do
         post :update, :id => "foo", :post => {:these => 'params'}, :preview => 'Preview'
-        Rails.cache.read("post-preview").should == mock_post
+        session["post_preview"].should == mock_post
       end
         
       it "should redirect to preview page" do
@@ -164,15 +164,15 @@ describe Admin::PostsController do
   describe "GET preview" do
     
     it "exposes a post initilaized from the cache as @post" do
-      Rails.cache.write("post-preview", mock_post)
+      session["post_preview"] = mock_post
       get :preview, :id => 'foo'
       assigns(:post).should equal(mock_post)
     end
     
-    it "should clear the Rails cache" do
-      Rails.cache.write("post-preview", mock_post)
+    it "should clear the session" do
+      session["post_preview"] = "foo"
       get :preview, :id => 'foo'
-      Rails.cache.read("post-preview").should == nil
+      session["post_preview"].should == nil
       
     end
     

@@ -23,11 +23,15 @@ ActionController::Routing::Routes.draw do |map|
   #     products.resources :comments
   #     products.resources :sales, :collection => { :recent => :get }
   #   end
+  
+  map.login 'login', :controller => 'user_sessions', :action => 'new'
+  map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
+  map.resource :user_session
 
   map.namespace :admin do |admin|
    admin.resources :posts, :member => { :preview => :get }, :collection => {:post_preview => :post}
   end
-  map.admin_root '/admin', :controller => 'admin/posts'
+  map.admin_root '/admin', :controller => 'admin/home'
   
   map.root :controller => "posts"
 
@@ -37,7 +41,9 @@ ActionController::Routing::Routes.draw do |map|
   map.by_month ':year/:month', :controller => 'posts', :action => 'by_month', :year => /\d{4}/, :month => /\d{2}/
   map.post ':year/:month/:id', :controller => 'posts', :action => 'show'
   
-  map.resources :sitemap, :controller => 'sitemap', :only => :index
+  # syndication urls
+  map.feed '/feed.:format',  :controller => 'syndication', :action => 'feed'
+  map.sitemap '/sitemap.:format', :controller => 'syndication', :action => 'sitemap'
   
   map.four_oh_four '/404', :controller => 'posts'
   

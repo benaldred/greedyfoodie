@@ -2,12 +2,14 @@
   <%= javascript_tag "window._token = '#{form_authenticity_token}';" %>
 <% end %>
 
-<% form_for :post, :url => { :action => "create" } do |f| %>
+<% form_for :post, :url => { :action => "create" }, :html => { :class => 'with-panel' } do |f| %>
   <%= render :partial => 'form', :object => f %>
-  <div class="btns">
-    <%= f.submit "Publish", :name => 'publish' %>
-    <%= f.submit "Save Draft", :name => 'draft' %>
-    <%= f.submit "Preview", :name => 'preview', :id => "post_preview" %>
+  <div class="side-panel">  
+    <div class="btns">
+      <%= f.submit "Publish", :name => 'publish' %>
+      <%= f.submit "Save Draft", :name => 'draft' %>
+      <%= f.submit "Preview", :name => 'preview', :id => "post_preview" %>
+    </div>
   </div>
 <% end %>
 

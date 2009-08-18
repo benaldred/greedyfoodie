@@ -17,8 +17,11 @@ class Post < CouchRest::ExtendedDocument
   
   save_callback :before, :set_permalink_from_title
   save_callback :before, :set_timestamps
+
   
   validates_present :title, :body
+  
+
   
   def set_permalink_from_title
 
@@ -111,8 +114,17 @@ class Post < CouchRest::ExtendedDocument
     [self['created_at'].year.to_s, self['created_at'].strftime("%m")]
   end
   
+  def url
+    year, month = year_and_month
+    "#{year}/#{month}/#{permalink}"
+  end
+  
   def verify_date?(options = {})
     (self['created_at'].year.to_s == options[:year]) && (self['created_at'].strftime("%m") == options[:month])
+  end
+  
+  def title_to_permalink(text)
+    text.downcase.gsub(/[^a-z0-9]/,'-').squeeze('-').gsub(/^\-|\-$/,'')
   end
   
   private
@@ -133,8 +145,6 @@ class Post < CouchRest::ExtendedDocument
     (self['_id'] != title_to_permalink(self['title']))
   end
   
-  def title_to_permalink(text)
-    text.downcase.gsub(/[^a-z0-9]/,'-').squeeze('-').gsub(/^\-|\-$/,'')
-  end
+
   
 end

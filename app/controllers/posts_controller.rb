@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+  
+  #caches_page :index
+    
   def index
     @posts = Post.by_published(:limit => 5)
     
@@ -42,5 +45,4 @@ class PostsController < ApplicationController
       format.html # by_year.html.erb
     end
   end
-
 end

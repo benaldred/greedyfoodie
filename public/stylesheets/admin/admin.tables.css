@@ -1,0 +1,74 @@
+/* =tables (generic/grey)
+------------------------------------------------------------------*/
+table.listing {
+	border:1px solid #DFDFDF;
+	width: 100%;
+	margin-bottom: 2em;
+}
+
+.listing caption {
+	font-size: 2em;
+	color:#0281CA;
+	margin-bottom: 0.5em;
+}
+
+.listing td, .listing th {
+	vertical-align:bottom;
+	line-height:1.3em;
+	padding:7px 7px 8px;
+	text-align:left;
+	font-size:1.4em;
+}
+
+.listing thead tr {
+	border: 1px solid #333;
+	border-bottom: 0;
+}
+
+.listing thead tr th {
+	background: #333 url(/images/bg-gradient.png) repeat-x bottom left;
+	color: #f7f7f7;
+	font-weight: bold;
+}
+
+.listing tr.even {
+	background: #eee;
+
+}
+
+.listing th .note {
+	font-size: 75%;
+	color: #666;
+}
+
+
+
+.listing td .title {
+	display:block;
+	margin-bottom: 0.5em;
+}
+
+.listing .medium {
+	width: 15%;
+}
+
+.listing .small {
+	width: 5%;
+}
+
+.listing td{
+	border-bottom:1px solid #DFDFDF;
+}
+
+.listing tr:hover td {
+
+	color: #0281CA;
+}
+
+.listing tr td a {
+
+}
+
+.listing tr:hover td a{
+	visibility: visible;
+}

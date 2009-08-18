@@ -1,0 +1,47 @@
+.frows {
+	margin: 0 20px;
+}
+
+.frow {
+	margin-bottom: 20px;
+	display:inline-block;
+	width: 100%;
+}
+
+.frow:after {
+ content: ".";
+ display: block;
+ visibility: hidden;
+ clear: both;
+ height: 0;
+}
+
+	.frow label, .frow .txt {
+		float:left;
+	}
+
+	.frow label {
+		font-size: 1.4em;
+		width: 15%;
+	}
+	
+	.frow .txt {
+		width: 83%;
+	}
+	
+.with-panel {
+	position: relative;
+}
+
+.with-panel .frows {
+	width: 76%;
+}
+	
+.side-panel {
+	width: 20%;
+	position: absolute;
+	top:0;
+	right: 0;
+	background: pink;
+}
+	

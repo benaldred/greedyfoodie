@@ -1,0 +1,14 @@
+/*------------------------------------------------------------------
+[Master Stylesheet]
+
+Project:
+
+* Organising and orchastrating the css files
+-------------------------------------------------------------------*/
+/* foundations */
+@import url('common/reset.css');
+@import url('common/base.css');
+
+@import url('admin/admin.layout.css');
+@import url('admin/admin.forms.css');
+@import url('admin/admin.tables.css');

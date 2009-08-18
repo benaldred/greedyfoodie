@@ -1,0 +1,138 @@
+h1 {
+	font-size: 5em;
+	font-weight: normal;
+	margin-bottom: 30px;
+}
+
+
+/* =header
+------------------------------------------------------------------*/
+#header {
+	background: #464646 url(/images/bg-gradient.png) repeat-x bottom left;
+	width:100%;
+	}
+	
+	#header h2 {
+		font-size: 2.4em;
+		color:#fff;
+		float:left;
+		padding: 0.5em 0;
+		margin: 0 2%;
+		letter-spacing: 0.1em;
+		font-weight: normal;
+	}
+	
+	.h-nav {
+		float:right;
+		margin-right: 2%;
+	}
+	
+	.h-nav p {
+		font-size: 1.2em;
+		color:#999999;
+		margin-top: 1em;
+	}
+	
+	.h-nav p a { color:#CCC; }
+	
+/* =structure
+------------------------------------------------------------------*/
+
+#wrapper {
+	width: 100%;
+	min-height: 500px;
+	padding-top: 20px;
+}
+
+.p-content {
+	width: 80%;
+	margin-left: 2%;
+	margin-right: 2%;
+	}
+
+
+/* =footer
+------------------------------------------------------------------*/
+#footer {
+	padding-top: 50px;
+	}
+
+	#footer p {
+		width: 46%;
+		margin:0 auto 50px auto;
+		font-size:1.4em;
+		text-align:center;
+		color: #222;
+	}
+
+	#footer a { color:#3671A1; }
+	
+/* =menu
+------------------------------------------------------------------*/
+
+#nav {
+	background: transparent;
+	width: 100%;
+}
+
+#nav .subnav{
+	background: #ccc;
+	width: 100%;
+	min-height: 20px;
+}
+
+	#nav .tabs {
+		margin-left: 200px;
+	}
+
+	#nav .tabs li a {
+		color:#21759B;
+		text-decoration: none;
+		display:block;
+		font-size: 1.4em;
+		padding: 8px 10px;
+		border-bottom: 0;
+		background-color: #fff;
+		float:left;
+		margin-right: 12px;
+		margin-bottom: -1px;
+	}
+
+	#nav li { 
+		list-style-type: none;
+		position: relative;
+		}
+
+
+	#nav li a:hover {
+		background-color: #EAF2FA;
+		color: #333;
+	}
+
+
+/* sub-menu item on state */
+.home #nav .n-home a, .home #nav .n-home a:hover,
+.posts #nav .n-posts a, .posts #nav .n-posts a:hover {
+	/*color: #fff;*/
+	font-weight: bold;
+	background-color: #fff;
+	color: #000;
+	position:relative;
+	bottom: -1px;
+	padding-bottom: 9px;
+}
+
+/* sub nav */
+#nav .subnav {
+	padding-left: 25px;
+	border-top: 1px solid #000;
+}
+	
+	#nav .subnav li {
+		float:left;
+		min-height: 20px;
+		margin-right: 12px;
+		font-size: 1.4em;
+		padding: 0.2em;
+		padding-top: 0.4em;
+	}
