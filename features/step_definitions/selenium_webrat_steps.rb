@@ -17,3 +17,14 @@ When /^I press "([^\"]*)" to open new window$/ do |button|
   selenium.wait_for_popup("postpreview", 300)
   selenium.select_window("postpreview")
 end
+
+Given /^I am logged in as "([^\"]*)" and wait$/ do |user|
+  check_for_user_or_create(user, "secret")
+  
+  #login
+  visit path_to("login")
+  fill_in("user_session_login", :with => user)
+  fill_in("user_session_password", :with => "secret")
+  click_button("Login")
+  selenium.wait_for_page
+end

@@ -21,6 +21,8 @@ module NavigationHelpers
       preview_admin_post_path($1)
     when /the index page/
       root_path
+    when /login/
+      login_path
     when /^the post "(.*)"$/i
       $1
     when /^the page for "(.*)"$/i

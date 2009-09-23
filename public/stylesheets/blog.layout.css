@@ -1,0 +1,49 @@
+/*------------------------------------------------------------------
+
+controlling the structure of elements and components and spacing (padding, margins)
+
+No
+- colours, typography
+-------------------------------------------------------------------*/
+
+#header, #wrapper {
+	width: 100%;
+}
+
+#wrapper {
+	width: 60%;
+	margin: 0 20%;
+}
+
+#header {
+	margin-bottom: 30px;
+	padding-bottom: 30px;
+	border-bottom:1px solid #CCCCCC;
+}
+
+#footer {
+	margin-top: 30px;
+	padding-top: 30px;
+	border-top:1px solid #CCCCCC;
+}
+
+/* navigation 
+-------------------------------------------------------------------*/
+#navigation {
+	width: 100%;
+}
+
+	#navigation ul {
+		float:right;
+	}
+	
+		#navigation li{
+			float:left;
+			display:block;
+		}
+	
+		#navigation li a {
+			padding: 0.5em 1em 0.5em 1em;
+			margin-left: 1em;
+			display:block;
+		}

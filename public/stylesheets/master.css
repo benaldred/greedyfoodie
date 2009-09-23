@@ -1,10 +1,35 @@
 /*------------------------------------------------------------------
-[Master Stylesheet]
+Default theme for blog
 
-Project:
+Name: soapbox
 
 * Organising and orchastrating the css files
 -------------------------------------------------------------------*/
 /* foundations */
 @import url('common/reset.css');
 @import url('common/base.css');
+
+/* blog files */
+@import url('blog.layout.css');
+
+/* Soapbox theme
+-------------------------------------------------------------------*/
+
+body {
+	border-top: 5px solid #009933;
+}
+
+#navigation li a {
+	background: #009933;
+	color: #fff;
+	font-weight: bold;
+	font-size: 120%;
+	text-decoration: none;
+}
+
+#header h2 {
+	font-family:Cambria,Georgia,serif;
+	font-size: 600%;
+	color: #009933;
+	font-weight: normal;
+}

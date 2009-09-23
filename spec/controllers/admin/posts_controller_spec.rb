@@ -5,6 +5,10 @@ describe Admin::PostsController do
   def mock_post(stubs={})
     @mock_post ||= mock(Post, stubs.merge!({:permalink => 'foo'}))
   end
+  
+  before do
+    login
+  end
 
   describe "GET 'index'" do
     it "should be successful" do
@@ -161,26 +165,38 @@ describe Admin::PostsController do
 
   end
   
-  describe "GET preview" do
-    
-    it "exposes a post initilaized from the cache as @post" do
-      session["post_preview"] = mock_post
+  describe "GET /preview" do    
+    it "exposes a post initialised from the cache as @post" do
+      session[:post_preview] = mock_post
+      get :preview
+      assigns(:post).should equal(mock_post)
+    end
+  
+    it "should clear the session" do
+      session[:post_preview] = mock_post
+      get :preview
+      session["post_preview"].should == nil
+    end
+  
+    it "should render the 'posts/show' template" do
+      session[:post_preview] = mock_post
+      get :preview
+      response.should render_template('posts/show')
+    end   
+  end     
+  
+  describe "GET /id/preview" do
+    it "use the id to init the post" do
+      Post.stub!(:get).and_return(mock_post)
       get :preview, :id => 'foo'
       assigns(:post).should equal(mock_post)
     end
-    
-    it "should clear the session" do
-      session["post_preview"] = "foo"
-      get :preview, :id => 'foo'
-      session["post_preview"].should == nil
-      
-    end
-    
+  
     it "should render the 'posts/show' template" do
-      Rails.cache.write("post-preview", mock_post)
+      Post.stub!(:get).and_return(mock_post)
       get :preview, :id => 'foo'
       response.should render_template('posts/show')
-    end
+    end    
   end
   
   describe "POST post_preview" do

@@ -1,9 +1,13 @@
+<%
+  @page = {:title => @post.title }
+%>
+
 <% if @post %>
 <div class="post">
   <h1><%= h @post.title %></h1>
   <p><%=  post_date(@post) %></p>
-  <div>
-    <%= h @post.body %>
+  <div class="body">
+    <%= RedCloth.new(@post.body).to_html %>
   </div>
 </div>
 <% end %>

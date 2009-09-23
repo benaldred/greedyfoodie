@@ -1,0 +1,7 @@
+development: &development
+
+test:
+  <<: *development
+
+production:
+  <<: *development

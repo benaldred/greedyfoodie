@@ -1,5 +1,5 @@
 class UserSessionsController < ApplicationController
-
+  layout "auth"
   before_filter :require_user, :only => :destroy
   
   def new
@@ -12,6 +12,7 @@ class UserSessionsController < ApplicationController
       flash[:notice] = "Login successful!"
       redirect_back_or_default admin_root_url
     else
+      @page = {:title => 'Login Failed!' } 
       render :action => :new
     end
   end

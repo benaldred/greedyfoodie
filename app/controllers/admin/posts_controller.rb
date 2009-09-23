@@ -55,11 +55,17 @@ class Admin::PostsController < Admin::AdminController
   end
 
   def preview
-    @post = session["post_preview"]
-    session["post_preview"] = nil
+    
+    if session["post_preview"]
+      @post = session["post_preview"]
+      session["post_preview"] = nil
+    end
+    
+    #use id if on query string
+    @post = Post.get(params[:id]) if params[:id]
     
     respond_to do |format|
-      format.html { render :template => 'posts/show'}
+      format.html { render :template => 'posts/show', :layout => 'application'}
     end
   end
   

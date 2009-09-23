@@ -8,7 +8,8 @@ require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
   config.gem "authlogic"
-  #config.gem 'ruby-openid', :lib => 'openid'
+  config.gem 'RedCloth'
+  
   #config.gem 'mattetti-couchrest', :lib => 'couchrest'
   #config.gem "svenfuchs-i18n", :lib => "i18n", :source => "http://gems.github.com"
 
@@ -19,13 +20,7 @@ Rails::Initializer.run do |config|
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
   config.cache_store = :file_store, "#{RAILS_ROOT}/public"
-  
-
-  # Specify gems that this application depends on and have them installed with rake gems:install
-  # config.gem "bj"
-  # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
-  # config.gem "sqlite3-ruby", :lib => "sqlite3"
-  # config.gem "aws-s3", :lib => "aws/s3"
+ 
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

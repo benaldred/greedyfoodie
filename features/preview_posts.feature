@@ -5,7 +5,8 @@ Feature: Preview posts
   So that I can check it
   
   Scenario: preview a new post
-    Given I am on the new post page
+    Given I am logged in as "admin"
+    And I am on the new post page
     When I fill in "post_title" with "my amazing blog post"
     And I fill in "post_body" with "some great content"
     And I press "Preview"
@@ -14,7 +15,8 @@ Feature: Preview posts
     And I should see "some great content"
     
   Scenario: preview an existing post
-    Given the following post:
+    Given I am logged in as "admin"
+    And the following post:
       | title   | body             |
       | a title | the amazing body |
     And I am on the post admin page

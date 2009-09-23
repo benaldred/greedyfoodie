@@ -29,7 +29,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :user_session
 
   map.namespace :admin do |admin|
-   admin.resources :posts, :member => { :preview => :get }, :collection => {:post_preview => :post}
+   admin.resources :posts, :member => { :preview => :get }, :collection => {:post_preview => :post, :preview => :get}
   end
   map.admin_root '/admin', :controller => 'admin/home'
   
