@@ -16,11 +16,11 @@ Name: soapbox
 -------------------------------------------------------------------*/
 
 body {
-	border-top: 5px solid #009933;
+	border-top: 5px solid #464646;
 }
 
 #navigation li a {
-	background: #009933;
+	background: #464646;
 	color: #fff;
 	font-weight: bold;
 	font-size: 120%;
@@ -30,6 +30,67 @@ body {
 #header h2 {
 	font-family:Cambria,Georgia,serif;
 	font-size: 600%;
-	color: #009933;
+	color: #464646;
 	font-weight: normal;
 }
+
+/* index page
+-------------------------------------------------------------------*/
+#posts h2 {
+	font-size: 400%;
+	margin-bottom: 20px;
+	text-align: center;
+	color:#000000;
+	font-family:georgia,'bitstream vera sans serif','lucida grande',helvetica,verdana,sans-serif;
+	font-weight:normal;
+	letter-spacing:-0.070em;
+	word-spacing: 0.20em;
+}
+
+	#posts h2 a {
+		border-bottom:1px solid #CCCCCC;
+		color:#009933;
+		padding-bottom:8px;
+		text-decoration: none;
+	}
+
+	#posts h2 a:hover {
+		border-bottom:2px solid #009933;
+	} 
+
+/* post
+-------------------------------------------------------------------*/
+.post h1 {
+	color:#000000;
+	font-family:georgia,'bitstream vera sans serif','lucida grande',helvetica,verdana,sans-serif;
+	font-weight:normal;
+	letter-spacing:-0.070em;
+	word-spacing: 0.20em;
+}
+
+.post h1 {
+	font-size: 400%;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.post .date {
+	color:#777777;
+	font-variant:small-caps;
+	font-size: 200%;
+	text-align:center;
+}
+
+.post .body {
+	color:#222;
+	font-family:corbel,'lucida grande',helvetica,sans-serif;
+	font-size:150%;
+	line-height:1.5;
+	margin-top: 20px;
+	margin-bottom: 40px;
+ }
+
+	.post .body p {
+		margin-bottom: 1.5em;
+	}
+

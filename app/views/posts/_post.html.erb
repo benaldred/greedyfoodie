@@ -1,5 +1,7 @@
 <div class="post hentry">
   <h2><%= link_to_post(post) %></h2>
-  <p><%= l post.created_at.to_date, :format => :long %></p>
-  <div><%= h post.body %></div>
+  <p class="date"><%=  post_date(post) %></p> 
+  <div class="body">
+    <%= RedCloth.new(post.body).to_html %>
+  </div>
 </div>

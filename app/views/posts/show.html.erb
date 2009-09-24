@@ -3,11 +3,21 @@
 %>
 
 <% if @post %>
-<div class="post">
+<div class="post hentry">
   <h1><%= h @post.title %></h1>
-  <p><%=  post_date(@post) %></p>
+  <p class="date"><%=  post_date(@post) %></p>
   <div class="body">
     <%= RedCloth.new(@post.body).to_html %>
   </div>
 </div>
+
+  <% if Soapbox['intensedebate_api_key'] %>
+    <script>
+    var idcomments_acct = '<%= Soapbox['intensedebate_api_key'] %>';
+    var idcomments_post_id;
+    var idcomments_post_url;
+    </script>
+    <span id="IDCommentsPostTitle" style="display:none"></span>
+    <script type='text/javascript' src='http://www.intensedebate.com/js/genericCommentWrapperV2.js'></script>       
+  <% end %>
 <% end %>
