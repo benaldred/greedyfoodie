@@ -1,3 +1,5 @@
 <% unless @posts.empty? %>
-  <%= render :partial => "post", :collection => @posts %>
+  <div id="posts"> 
+    <%= render :partial => "post", :collection => @posts %>
+  </div>
 <% end %>

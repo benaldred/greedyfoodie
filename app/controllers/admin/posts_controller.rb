@@ -55,6 +55,8 @@ class Admin::PostsController < Admin::AdminController
   end
 
   def preview
+    #mark the post as a preview
+    @post_preview = true
     
     if session["post_preview"]
       @post = session["post_preview"]
@@ -70,10 +72,13 @@ class Admin::PostsController < Admin::AdminController
   end
   
   def post_preview
+    #mark the post as a preview
+    @post_preview = true
+    
     @post = Post.new(:title => params[:post_title], :body => params[:post_body])
     
     respond_to do |format|
-      format.html { render :template => 'posts/show'}
+      format.html { render :template => 'posts/show', :layout => 'application'}
     end
   end
   

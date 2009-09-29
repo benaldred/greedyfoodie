@@ -18,4 +18,10 @@ module PostsHelper
     end
     list.join("\n  ")
   end
+  
+  def recent_posts
+    content_tag(:ul,
+      @recent_posts.collect { |post| content_tag(:li, link_to_post(post)) }.join("\n"),
+      :id => "recent_posts")
+  end
 end

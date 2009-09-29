@@ -5,6 +5,17 @@ describe PostsController do
   def mock_post(stubs={})
     @mock_post ||= mock(Post, stubs)
   end
+  
+  before(:each) do
+    # minimal spec to check the before filter runs
+    controller.should_receive(:setup_sidebar).once.and_return(true)
+  end
+  
+  shared_examples_for "the sidebar has been setup" do
+    it "should have setup the sidebar" do
+      assigns[:recent_posts].should == [mock_post]
+    end
+  end
 
 
   describe "GET 'index'" do
@@ -18,6 +29,7 @@ describe PostsController do
       get :index
       assigns[:posts].should == [mock_post]
     end
+    
   end
   
   describe "GET 'show'" do

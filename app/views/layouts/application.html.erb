@@ -25,12 +25,13 @@
         <%= content_tag(:p, blog_strapline) if blog_strapline %>
     </div><!-- #header -->
     <div class="p-content">
-      <%#= display_page_title %>
-
       <%#= render :partial => 'layouts/flashes' -%>
       <%= yield %>
 
     </div><!-- .p-content -->
+    <div id="s-content">
+      <%= render :partial => 'shared/s_content' unless post_preview? -%>
+    </div>
     <div id="footer">
       <p>Some footer text and a copywrite</p>
     </div>

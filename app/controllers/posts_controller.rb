@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   
-  #caches_page :index
+  before_filter :setup_sidebar
     
   def index
     @posts = Post.by_published(:limit => 5)
@@ -43,6 +43,14 @@ class PostsController < ApplicationController
     
     respond_to do |format|
       format.html # by_year.html.erb
+    end
+  end
+  
+  protected
+  
+  def setup_sidebar
+   if request.format.to_sym == :html  
+      @recent_posts = Post.by_published(:limit => 5)
     end
   end
 end

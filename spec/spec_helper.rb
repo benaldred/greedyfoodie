@@ -67,4 +67,3 @@ end
 def logout
   @user_session = nil
 end
-

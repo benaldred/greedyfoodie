@@ -30,4 +30,11 @@ describe PostsHelper do
       by_month_list(@post_sum_by_month).should == "<li><a href=\"/2009/08\">August 2009</a> <span>1</span></li>\n  <li><a href=\"/2009/06\">June 2009</a> <span>1</span></li>"     
     end
   end
+  
+  describe "recent post list" do
+    it "should render a list of recent posts" do
+      @recent_posts = [mock_post(:permalink => "a-title", :year_and_month => ["2009", "06"], :title => "a title")]
+     recent_posts.should == "<ul id=\"recent_posts\"><li><a href=\"2009/06/a-title\">a title</a></li></ul>" 
+    end                                      
+  end
 end

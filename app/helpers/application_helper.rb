@@ -25,6 +25,10 @@ module ApplicationHelper
     Soapbox['strapline']
   end
   
+  def post_preview?
+    @post_preview
+  end
+  
   private
   
   def viewing_post?
