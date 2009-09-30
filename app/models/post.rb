@@ -5,11 +5,9 @@ class Post < CouchRest::ExtendedDocument
   # -------------------
   #  Properties
   # -------------------
-  
-  unique_id :permalink
-  
   property :title
   property :body
+  property :preview, :default => nil
   property :status, :default => 'draft'
   property :permalink
   property(:updated_at, :read_only => true, :cast_as => 'Time', :auto_validation => false)
@@ -20,17 +18,11 @@ class Post < CouchRest::ExtendedDocument
 
   
   validates_present :title, :body
-  
+  #validates_is_unique property.name
 
   
   def set_permalink_from_title
-
     self['permalink'] = generate_unique_permalink_from_title if new_record? || title_changed?
-    
-    # if the title has changed and its an edit
-    # set a new id and clean up the old doc
-    # TODO look at copy method in couch rest
-    cleanup_old_doc if title_changed? and not new_record?  
   end
   
   # generates a unique permalink from the title
@@ -38,16 +30,52 @@ class Post < CouchRest::ExtendedDocument
     
     permalink = title_to_permalink(title)
     permalink = "#{permalink}-#{postfix}" if postfix > 1
-    
 
-    # if post exists call again adding postfix
-    # if currnt post exists then it will find itself anf +1
-    if Post.exists?(permalink)
-      generate_unique_permalink_from_title(postfix+1) 
+    if Post.permalink_unique?(permalink)
+      # permalink is ok and just return
+      return permalink 
     else
-     return permalink
+      # call the same method again with an incremented number
+      generate_unique_permalink_from_title(postfix+1)
     end
   end
+  
+  # alternative constructor that return a new post object with some values set 
+  def self.new_from_params(params)
+    post = Post.new(params[:post])
+    #set the status
+    if params[:preview]
+      post.status = 'preview'
+    end 
+    post.status = 'published' if params[:publish]
+
+    post
+  end
+  
+  def set_updated_at(time)
+    self['updated_at'] = Time.parse(time)
+  end
+  
+  
+  # -------------------
+  #  Find by ..
+  # -------------------
+  
+  # will return the first post it finds by the pemalink
+  def self.find_by_permalink(permalink)
+    Post.by_permalink(:key => permalink).first
+  end
+  
+  def self.find_by_year(year)
+    year = year.to_i
+    self.by_published(:startkey => [year,12,31], :endkey => [year,1,1])
+  end
+  
+  def self.find_by_year_and_month(year, month)
+    month = month.to_i
+    year = year.to_i
+    self.by_published(:startkey => [year,month,Time.days_in_month(month)], :endkey => [year,month,1])
+  end 
   
   # -------------------
   #  Views
@@ -55,6 +83,17 @@ class Post < CouchRest::ExtendedDocument
   
   view_by :created_at, :descending => true
   view_by :status, :created_at, :descending => true
+  
+  view_by :permalink
+  
+  # exclude preview posts and order by updated_at
+  view_by :admin_posts, :descending => true,
+    :map =>
+     "function(doc) {
+       if ((doc['couchrest-type'] == 'Post') && (doc['status'] != 'preview') && doc['updated_at']) {
+        emit(doc['updated_at'], 1);
+       }
+     }"
   
   # it is implied that all published articles are 
   # ordered by date, descending
@@ -74,16 +113,7 @@ class Post < CouchRest::ExtendedDocument
          return sum(values);
        }"
 
-  def self.find_by_year(year)
-    year = year.to_i
-    self.by_published(:startkey => [year,12,31], :endkey => [year,1,1])
-  end
-  
-  def self.find_by_year_and_month(year, month)
-    month = month.to_i
-    year = year.to_i
-    self.by_published(:startkey => [year,month,Time.days_in_month(month)], :endkey => [year,month,1])
-  end
+
   
   # sum_by_month
   # 
@@ -92,22 +122,37 @@ class Post < CouchRest::ExtendedDocument
     self.by_published :reduce => true, :group_level => 2
   end
   
-  def self.exists?(id)
-    !get(id).nil?
-  end
   
+  # -------------------
+  #  Before save
+  # -------------------
+  
+  #TODO remove this and use an explicit set for testing
   def set_timestamps
     self['updated_at'] = Time.now
     self['created_at'] = self['updated_at'] if self.new_document? && self['created_at'].nil?
+  end  
+  
+  # check if the permalink is unique
+  def self.permalink_unique?(permalink)
+    !Post.find_by_permalink(permalink)
   end
   
+
   
+  # -------------------
+  #  useful methods
+  # -------------------
   def draft?
     self['status'] == 'draft'
   end
   
   def published?
     self['status'] == 'published'
+  end
+  
+  def preview?
+    self['status'] == 'preview'
   end
   
   def year_and_month
@@ -129,20 +174,8 @@ class Post < CouchRest::ExtendedDocument
   
   private
   
-  def cleanup_old_doc
-    # store the old id 
-    id = self['_id']
-    
-    #keep the same doc but set a new id
-    self['_id'] = self['permalink']
-    
-    # remove old doc
-    post = Post.get(id)
-    post.destroy
-  end
-  
   def title_changed?
-    (self['_id'] != title_to_permalink(self['title']))
+    (self['permalink'] != title_to_permalink(self['title']))
   end
   
 

@@ -1,56 +1,50 @@
 class Admin::PostsController < Admin::AdminController
   
   def index
-    @posts = Post.all
+    @posts = Post.by_admin_posts
   end
 
   def new
   end
   
   def create
-    # create the article
-    @post = Post.new(params[:post])
+    # create the post
+    @post = Post.new_from_params(params)
     
     respond_to do |format|
-      if params[:preview]
-        format.html {
-          session["post_preview"] =  @post
-          redirect_to(preview_admin_post_url(@post.generate_unique_permalink_from_title))
-        }
-      else
-        @post.status = 'published' if params[:publish]
         if @post.save
-          format.html { redirect_to(edit_admin_post_url(@post.permalink)) }
+          format.html {
+            params[:preview] ? redirect_to(preview_admin_post_url(@post.permalink)) : redirect_to(edit_admin_post_url(@post.permalink))
+           }
         else
           format.html { render :action => "new" }
         end
-      end
     end
     
   end
 
   def edit
-    @post = Post.get(params[:id])
+    @post = Post.find_by_permalink(params[:id]) 
   end
   
   def update
-    @post = Post.get(params[:id])
+    @post = Post.find_by_permalink(params[:id]) 
+    
+    #should we see if they diff
+    @post.preview = params[:post][:body] if params[:preview]
+    
+    @post.status = 'published' if params[:publish]
     
     respond_to do |format|
-      if params[:preview]
-        format.html {
-          @new_post = Post.new(params[:post])
-          session["post_preview"] = @new_post
-          redirect_to(preview_admin_post_url(@new_post.generate_unique_permalink_from_title))
+      
+      @post.status = 'published' if params[:publish]
+      if @post.update_attributes(params[:post])
+        format.html { 
+          params[:preview] ? redirect_to(preview_admin_post_url(@post.permalink)) : redirect_to(edit_admin_post_url(@post.permalink)) 
         }
       else
-        @post.status = 'published' if params[:publish]
-        if @post.update_attributes(params[:post])
-          format.html { redirect_to(edit_admin_post_url(@post.permalink)) }
-        else
-          format.html { render :action => "edit" }
-        end
-      end
+        format.html { render :action => "edit" }
+      end   
     end
   end
 
@@ -58,24 +52,11 @@ class Admin::PostsController < Admin::AdminController
     #mark the post as a preview
     @post_preview = true
     
-    if session["post_preview"]
-      @post = session["post_preview"]
-      session["post_preview"] = nil
-    end
-    
     #use id if on query string
-    @post = Post.get(params[:id]) if params[:id]
     
-    respond_to do |format|
-      format.html { render :template => 'posts/show', :layout => 'application'}
-    end
-  end
-  
-  def post_preview
-    #mark the post as a preview
-    @post_preview = true
+    @post = Post.find_by_permalink(params[:id])
+    @post.body = @post.preview unless @post.preview.nil?
     
-    @post = Post.new(:title => params[:post_title], :body => params[:post_body])
     
     respond_to do |format|
       format.html { render :template => 'posts/show', :layout => 'application'}

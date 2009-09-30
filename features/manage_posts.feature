@@ -3,18 +3,20 @@ Feature: Manage posts
   As an article writer
   I want to edit, delete and view existing blog posts
     
-  Scenario: show a list of created posts
+  Scenario: show a list of created posts with recent updated to the top
     Given the following posts:
-      | title        | body             | created_at                |
-      | a title      | the amazing body | 2009/06/24 14:10:27 +0000 |
-      | the best title | the amazing body | 2009/06/26 21:07:32 +0000 |
-      | a great post | the amazing body | 2009/06/26 21:07:32 +0000 |   
+      | title          | body             | created_at                | updated_at                |
+      | a title        | the amazing body | 2009/06/24 14:10:27 +01:00 | 2009/06/24 14:10:27 +01:00 |
+      | the best title | the amazing body | 2009/06/26 21:07:32 +01:00 | 2009/08/26 21:07:32 +01:00 |
+      | a great post   | the amazing body | 2009/06/26 21:07:32 +01:00 | 2009/08/26 22:22:32 +01:00 |
+  
     And I am logged in as "admin"
     And I am on the post admin page
     Then I should see the following posts:
-    | title          | created at       |
-    | a great post        | 26 June 2009 |
-    | a title   | 24 June 2009 |
+    | title          | last updated            | created at   |
+    | a great post   | 26 August 2009 at 22:22 | 26 June 2009 |
+    | the best title | 26 August 2009 at 21:07 | 26 June 2009 |
+    | a title        | 24 June 2009 at 14:10   | 24 June 2009 |
   
   Scenario: edit an existing post
     Given I am logged in as "admin"
@@ -74,15 +76,15 @@ Feature: Manage posts
   Scenario: Delete a post
     Given I am logged in as "admin"
     And the following posts:
-      | title          | body             |
-      | a title        | the amazing body |
-      | a rubbish post | the crap body    |
-      | a great post   | the amazing body |
+      | title          | body             |updated_at                 |
+      | a title        | the amazing body |2009/09/24 14:10:27 +01:00 |
+      | a rubbish post | the crap body    |2009/08/26 21:07:32 +01:00 |
+      | a great post   | the amazing body |2009/07/26 21:07:32 +01:00 |
     When I delete the 2nd post
     Then I should see the following posts:
-    | title          |
+    | title          | 
+    | a title        |
     | a great post   | 
-    | a title        | 
     
 
   

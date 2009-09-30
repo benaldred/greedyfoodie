@@ -52,20 +52,12 @@ describe Post do
     @new.permalink.should == "only-unique-permalinks-times-3"
   end
   
-  it "should update the id when title is changed" do
-    @post = Post.create!(:title => "title one", :body => "The best blog post in the world")
-    @post.title = "title two"
-    @post.save!
-    
-    Post.get("title-two").should_not == nil
-  end
-  
   it "should update the permalink when title is changed" do
     @post = Post.create!(:title => "title one", :body => "The best blog post in the world")
     @post.title = "title two"
     @post.save!
     
-    @foo = Post.get("title-two")
+    @foo = Post.get(@post.id)
     @foo.permalink.should == "title-two"
   end
   
@@ -76,14 +68,14 @@ describe Post do
     Post.get("title-one").should == nil
   end
   
-  describe "exists? method" do
-    it "should return true if document exists" do
+  describe "permalink_unique? method" do
+    it "should return false if permalink is being used" do
       @post.save!
-      Post.exists?(@post.id).should == true
+      Post.permalink_unique?(@post.permalink).should == false
     end
     
-    it "should return false when document no in db" do
-      Post.exists?("random-id-that-does-not-exist").should == false
+    it "should return true if permalink is not in use" do
+      Post.permalink_unique?("random-id-that-does-not-exist").should == true
     end
   end
   
@@ -157,5 +149,31 @@ describe Post do
       @posts = Post.find_by_year_and_month('2009', '06')
       @posts.size.should == 1
     end
+    
+    it "should find a post by its permalink" do
+      @post = Post.find_by_permalink('title-one')
+      @post.should_not == nil
+    end
+  end
+  
+  
+  describe ".new_from_params" do
+  
+    it "should set the post status from the params" do
+      @post = Post.new_from_params({:post=>{:body=>"foo bar", :title=>"testing"}, :preview=>"Preview"})
+      @post.status.should == "preview"
+    end
+    
+    it "should store the preview" do
+      @post = Post.new_from_params({:post=>{:body=>"foo bar", :title=>"testing"}, :preview=>"Preview"})
+      @post.preview.should == nil 
+    end
+  
+  end
+  
+  it "should be able to override the updated_at value" do
+    @post = Post.create!(:title => "title one", :body => "The best blog post in the world")
+    @post.set_updated_at("2009/06/24 14:10:27")
+    @post.updated_at.should == Time.parse("2009/06/24 14:10:27")
   end
 end

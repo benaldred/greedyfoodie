@@ -34,27 +34,27 @@ describe PostsController do
   
   describe "GET 'show'" do
     it "should be successful" do
-      Post.stub!(:get).and_return(mock_post(:published? => true, :verify_date? => true))
-      get :show, :year => "2009", :month => "06", :id => "a-title"
+      Post.stub!(:find_by_permalink).and_return(mock_post(:published? => true, :verify_date? => true))
+      get :show, :year => "2009", :month => "06", :permalink => "a-title"
       response.should be_success
     end
     
     it "should assign post as @post" do
-      Post.stub!(:get).and_return(mock_post(:published? => true, :verify_date? => true))
-      get :show, :year => "2009", :month => "06", :id => "a-title"
+      Post.stub!(:find_by_permalink).and_return(mock_post(:published? => true, :verify_date? => true))
+      get :show, :year => "2009", :month => "06", :permalink => "a-title"
       assigns[:post].should == mock_post
     end
     
     it "should redirect unpublished posts to the 404 page" do
-      Post.stub!(:get).and_return(mock_post(:published? => false, :verify_date? => true))
-      get :show, :year => "2009", :month => "06", :id => "a-title"
+      Post.stub!(:find_by_permalink).and_return(mock_post(:published? => false, :verify_date? => true))
+      get :show, :year => "2009", :month => "06", :permalink => "a-title"
       response.should redirect_to('/404')
     end
     
     # we really want to index and cache the correct url
     it "should redirect posts with incorrect dates to 404" do
-      Post.stub!(:get).and_return(mock_post(:published? => true, :verify_date? => false))
-      get :show, :year => "2009", :month => "06", :id => "a-title"
+      Post.stub!(:find_by_permalink).and_return(mock_post(:published? => true, :verify_date? => false))
+      get :show, :year => "2009", :month => "06", :permalink => "a-title"
       response.should redirect_to('/404')
     end
   

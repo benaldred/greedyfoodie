@@ -8,7 +8,7 @@ describe PostsController do
     end
   
     it "should map show" do
-      route_for(:controller => "posts", :action => "show", :id => "a-title", :month => "01", :year => "2009").should == "/2009/01/a-title"
+      route_for(:controller => "posts", :action => "show", :permalink => "a-title", :month => "01", :year => "2009").should == "/2009/01/a-title"
     end
     
     it "should map by_year" do
@@ -26,7 +26,7 @@ describe PostsController do
   
   describe "route recognition" do
     it "generates params for #show" do
-      params_from(:get, "/2009/01/a-title").should == {:controller => "posts", :action => "show", :id => "a-title", :month => "01", :year => "2009"}
+      params_from(:get, "/2009/01/a-title").should == {:controller => "posts", :action => "show", :permalink => "a-title", :month => "01", :year => "2009"}
     end
     
     it "generates params for #by_year" do

@@ -11,7 +11,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.get(params[:id])
+    @post = Post.find_by_permalink(params[:permalink])
     
     respond_to do |format|
       if @post.published? && @post.verify_date?(:month => params[:month], :year => params[:year])

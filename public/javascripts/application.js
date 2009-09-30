@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  $("#post_preview").bind("click", function(){
+/*  $("#post_preview").bind("click", function(){
 		// get the values from the page
 		var title = $('input#post_title').val();
 		var body = $('textarea#post_body').val();
@@ -11,6 +11,7 @@ $(document).ready(function(){
 
 		return false;
 	});
+*/
 });
 
 function openPopUp(html, windowName){

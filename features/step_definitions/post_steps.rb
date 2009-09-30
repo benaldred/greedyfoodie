@@ -1,6 +1,12 @@
 Given /^the following posts?:$/ do |table|
   table.hashes.each do |hash|
-    Post.create!(hash)
+    post = Post.create!(hash)
+    # we need to override the updated_at with the values supplied
+    if hash.include?('updated_at')
+      post.set_updated_at(hash['updated_at'])
+      # save without running the set_timestamps
+      post.save_without_callbacks
+    end
   end
 end
 
