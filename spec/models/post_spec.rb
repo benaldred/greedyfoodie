@@ -77,6 +77,12 @@ describe Post do
     it "should return true if permalink is not in use" do
       Post.permalink_unique?("random-id-that-does-not-exist").should == true
     end
+    
+    it "should only acknowledge non 'preview' posts" do
+      @post = Post.new_from_params({:post=>{:body=>"foo bar", :title=>"testing"}, :preview=>"Preview"})
+      @post.save!
+      Post.permalink_unique?('testing').should == true
+    end
   end
   
   it "draft? should return true if post is a draft" do

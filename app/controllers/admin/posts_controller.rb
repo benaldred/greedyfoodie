@@ -14,7 +14,8 @@ class Admin::PostsController < Admin::AdminController
     respond_to do |format|
         if @post.save
           format.html {
-            params[:preview] ? redirect_to(preview_admin_post_url(@post.permalink)) : redirect_to(edit_admin_post_url(@post.permalink))
+            # if we want to preview here use the id to avoid permlink clashes
+            params[:preview] ? redirect_to(preview_admin_post_url(@post.id, {:status => 'preview'})) : redirect_to(edit_admin_post_url(@post.permalink))
            }
         else
           format.html { render :action => "new" }
@@ -39,7 +40,8 @@ class Admin::PostsController < Admin::AdminController
       
       @post.status = 'published' if params[:publish]
       if @post.update_attributes(params[:post])
-        format.html { 
+        format.html {
+          # if we are editing a post it has a permalink so we can use that to preview 
           params[:preview] ? redirect_to(preview_admin_post_url(@post.permalink)) : redirect_to(edit_admin_post_url(@post.permalink)) 
         }
       else
@@ -51,10 +53,14 @@ class Admin::PostsController < Admin::AdminController
   def preview
     #mark the post as a preview
     @post_preview = true
-    
-    #use id if on query string
-    
-    @post = Post.find_by_permalink(params[:id])
+    puts params.inspect
+     
+    if params[:status] == 'preview'
+      @post = Post.get(params[:id])
+    else
+      # if we are editing a post it has a permalink so we can use that to preview which is passed as the id
+      @post = Post.find_by_permalink(params[:id])
+    end
     @post.body = @post.preview unless @post.preview.nil?
     
     

@@ -135,7 +135,9 @@ class Post < CouchRest::ExtendedDocument
   
   # check if the permalink is unique
   def self.permalink_unique?(permalink)
-    !Post.find_by_permalink(permalink)
+    post = Post.find_by_permalink(permalink)
+    # previews are temp and not 'real' posts
+    post.nil? || (post.status == 'preview')
   end
   
 
