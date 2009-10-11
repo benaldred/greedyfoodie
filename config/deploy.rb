@@ -1,4 +1,4 @@
-set :application, "greediefoodie.com"
+set :application, "greedyfoodie.com"
 
 # git
 default_run_options[:pty] = true
