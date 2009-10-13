@@ -1,3 +1,9 @@
+<%
+  @page = {:title => "Posts in #{params[:year]}" }
+%>
+<h1>Posts in <strong><%= params[:year] %></strong></h1>
 <% unless @posts.empty? %>
-  <%= render :partial => "post", :collection => @posts %>
+  <div id="posts"> 
+    <%= render :partial => "post", :collection => @posts %>
+  </div>
 <% end %>

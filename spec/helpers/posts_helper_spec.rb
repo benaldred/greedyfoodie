@@ -12,6 +12,11 @@ describe PostsHelper do
     link_to_post(@post).should == '<a href="2009/06/a-title">a title</a>'
   end
   
+  it "link_to_post should return a full permalink for a post with a custom title" do
+    @post = mock_post(:permalink => "a-title", :year_and_month => ["2009", "06"], :title => "a title")
+    link_to_post(@post, 'foo bar').should == '<a href="2009/06/a-title">foo bar</a>'
+  end
+  
   describe "display the posts date" do
     it "should display nicely formatted date" do
       @post = mock_post(:created_at => "2008/06/24 14:10:27 +0000", :new_record? => false)

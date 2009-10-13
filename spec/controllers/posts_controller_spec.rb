@@ -76,15 +76,21 @@ describe PostsController do
   
   describe "GET 'by_month'" do
     it "should be successful" do
-      Post.stub!(:find_by_year_and_month).and_return([mock_post])
+      Post.stub!(:find_by_year_and_month).and_return([mock_post(:created_at => Time.gm(2009, 9))])
       get :by_month, :year => "2009", :month => "09"
       response.should be_success
     end
     
     it "should assign post as @post" do
-      Post.stub!(:find_by_year_and_month).and_return([mock_post])
+      Post.stub!(:find_by_year_and_month).and_return([mock_post(:created_at => Time.gm(2009, 9))])
       get :by_month, :year => "2009", :month => "09"
       assigns[:posts].should == [mock_post]
+    end
+    
+    it "should assign month name as @month_name" do
+      Post.stub!(:find_by_year_and_month).and_return([mock_post(:created_at => Time.gm(2009, 12))])
+      get :by_month, :year => "2009", :month => "12"
+      assigns[:month_name].should == 'December'
     end
   end
   

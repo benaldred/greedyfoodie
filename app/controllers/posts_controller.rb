@@ -40,6 +40,7 @@ class PostsController < ApplicationController
   
   def by_month
     @posts = Post.find_by_year_and_month(params[:year], params[:month])
+    @month_name = @posts.first.created_at.strftime("%B")
     
     respond_to do |format|
       format.html # by_year.html.erb

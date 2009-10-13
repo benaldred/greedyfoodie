@@ -27,6 +27,17 @@ No
 	border-top:1px solid #CCCCCC;
 }
 
+#p-content {
+	width: 70%;
+	float:left;
+	margin-right: 5%;
+}
+
+#s-content {
+	width: 25%;
+	float:left;
+}
+
 /* navigation 
 -------------------------------------------------------------------*/
 #navigation {
@@ -47,3 +58,26 @@ No
 			margin-left: 1em;
 			display:block;
 		}
+		
+/* secondary content
+-------------------------------------------------------------------*/
+#s-content {
+	
+}
+
+	#s-content h3 {
+	  	font-size: 200%;
+		margin-bottom: 10px;
+	}
+	
+	#s-content p, #s-content li {
+		color:#222;
+		font-family:corbel,'lucida grande',helvetica,sans-serif;
+		font-size:120%;
+		line-height:1.5;
+		margin-bottom: 10px;
+	}
+	
+	#s-content ul {
+		margin-left: 15px;
+	}

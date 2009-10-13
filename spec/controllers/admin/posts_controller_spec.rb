@@ -89,7 +89,7 @@ describe Admin::PostsController do
       it "should redirect to preview page" do
         Post.should_receive(:new).with({'these' => 'params'}).and_return(@foo = mock_post(:save => true, :status= => true, :preview? => true))
         post :create, :post => {:these => 'params'}, :preview => 'Preview'
-        response.should redirect_to(preview_admin_post_url(mock_post.permalink))
+        response.should redirect_to(preview_admin_post_url(mock_post, {:status => 'preview'}))
       end
     end
     

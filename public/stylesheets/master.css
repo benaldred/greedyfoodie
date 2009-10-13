@@ -34,6 +34,27 @@ body {
 	font-weight: normal;
 }
 
+#p-content h2 {
+	font-family:Cambria,Georgia,serif;
+	font-size: 300%;
+	color: #464646;
+	font-weight: normal;
+}
+	
+#p-content ul {
+	margin-left: 18px;
+} 
+
+#p-content p, #p-content li {
+	color:#222;
+	font-family:corbel,'lucida grande',helvetica,sans-serif;
+	font-size:150%;
+	line-height:1.5;
+	margin-top: 20px;
+	margin-bottom: 40px;
+	margin-bottom: 1.5em;
+} 
+
 /* index page
 -------------------------------------------------------------------*/
 #posts h2 {
@@ -68,7 +89,7 @@ body {
 	word-spacing: 0.20em;
 }
 
-.post h1 {
+#p-content h1 {
 	font-size: 400%;
 	margin-bottom: 20px;
 	text-align: center;
@@ -81,16 +102,8 @@ body {
 	text-align:center;
 }
 
-.post .body {
-	color:#222;
-	font-family:corbel,'lucida grande',helvetica,sans-serif;
-	font-size:150%;
-	line-height:1.5;
-	margin-top: 20px;
-	margin-bottom: 40px;
- }
+/* archives page
+-------------------------------------------------------------------*/
 
-	.post .body p {
-		margin-bottom: 1.5em;
-	}
-
+#by_month {
+}
