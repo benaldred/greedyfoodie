@@ -15,7 +15,7 @@ class Admin::PostsController < Admin::AdminController
         if @post.save
           format.html {
             # if we want to preview here use the id to avoid permlink clashes
-            params[:preview] ? redirect_to(preview_admin_post_url(@post.id, {:status => 'preview'})) : redirect_to(edit_admin_post_url(@post.permalink))
+            params[:preview] ? redirect_to(preview_admin_post_url(@post, {:status => 'preview'})) : redirect_to(edit_admin_post_url(@post.permalink))
            }
         else
           format.html { render :action => "new" }
@@ -53,7 +53,6 @@ class Admin::PostsController < Admin::AdminController
   def preview
     #mark the post as a preview
     @post_preview = true
-    puts params.inspect
      
     if params[:status] == 'preview'
       @post = Post.get(params[:id])

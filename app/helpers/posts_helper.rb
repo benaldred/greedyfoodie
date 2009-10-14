@@ -1,7 +1,7 @@
 module PostsHelper
-  def link_to_post(post)
-    year, month = post.year_and_month
-    link_to h(post.title), "#{year}/#{month}/#{post.permalink}"
+  def link_to_post(post, title=nil)
+    post_title = title ||post.title 
+    link_to h(post_title), post.url
   end
   
   def post_date(post)
@@ -17,6 +17,12 @@ module PostsHelper
       list << content_tag(:li,  link_to(date.strftime("%B %Y"), date.strftime("/%Y/%m")) + " " + content_tag(:span, row["value"]))
     end
     list.join("\n  ")
+  end
+  
+  def content_for_post(post)
+    # search through replace the <!-- more --> with a link and not display the rest
+    content = post.body.gsub(/<!-- more -->.*$/m, link_to_post(post, 'Read more ...'))
+    RedCloth.new(content).to_html
   end
   
   def recent_posts

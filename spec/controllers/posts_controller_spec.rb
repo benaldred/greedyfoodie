@@ -34,26 +34,26 @@ describe PostsController do
   
   describe "GET 'show'" do
     it "should be successful" do
-      Post.stub!(:find_by_permalink).and_return(mock_post(:published? => true, :verify_date? => true))
+      Post.stub!(:find_by_permalink).and_return(mock_post(:published? => true, :verify_date? => true, :updated_at => Time.now))
       get :show, :year => "2009", :month => "06", :permalink => "a-title"
       response.should be_success
     end
     
     it "should assign post as @post" do
-      Post.stub!(:find_by_permalink).and_return(mock_post(:published? => true, :verify_date? => true))
+      Post.stub!(:find_by_permalink).and_return(mock_post(:published? => true, :verify_date? => true, :updated_at => Time.now))
       get :show, :year => "2009", :month => "06", :permalink => "a-title"
       assigns[:post].should == mock_post
     end
     
     it "should redirect unpublished posts to the 404 page" do
-      Post.stub!(:find_by_permalink).and_return(mock_post(:published? => false, :verify_date? => true))
+      Post.stub!(:find_by_permalink).and_return(mock_post(:published? => false, :verify_date? => true, :updated_at => Time.now))
       get :show, :year => "2009", :month => "06", :permalink => "a-title"
       response.should redirect_to('/404')
     end
     
     # we really want to index and cache the correct url
     it "should redirect posts with incorrect dates to 404" do
-      Post.stub!(:find_by_permalink).and_return(mock_post(:published? => true, :verify_date? => false))
+      Post.stub!(:find_by_permalink).and_return(mock_post(:published? => true, :verify_date? => false, :updated_at => Time.now))
       get :show, :year => "2009", :month => "06", :permalink => "a-title"
       response.should redirect_to('/404')
     end
@@ -76,15 +76,21 @@ describe PostsController do
   
   describe "GET 'by_month'" do
     it "should be successful" do
-      Post.stub!(:find_by_year_and_month).and_return([mock_post])
+      Post.stub!(:find_by_year_and_month).and_return([mock_post(:created_at => Time.gm(2009, 9))])
       get :by_month, :year => "2009", :month => "09"
       response.should be_success
     end
     
     it "should assign post as @post" do
-      Post.stub!(:find_by_year_and_month).and_return([mock_post])
+      Post.stub!(:find_by_year_and_month).and_return([mock_post(:created_at => Time.gm(2009, 9))])
       get :by_month, :year => "2009", :month => "09"
       assigns[:posts].should == [mock_post]
+    end
+    
+    it "should assign month name as @month_name" do
+      Post.stub!(:find_by_year_and_month).and_return([mock_post(:created_at => Time.gm(2009, 12))])
+      get :by_month, :year => "2009", :month => "12"
+      assigns[:month_name].should == 'December'
     end
   end
   

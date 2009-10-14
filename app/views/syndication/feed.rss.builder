@@ -1,9 +1,9 @@
 xml.instruct! :xml, :version=>"1.0"
 xml.rss :version => "2,0" do
   xml.channel do
-    xml.title "[blog title]"
+    xml.title blog_title
     xml.link root_url
-    xml.description "[blog description]"
+    xml.description blog_description if blog_description
     xml.langauge "en-gb"
     
     if @posts
