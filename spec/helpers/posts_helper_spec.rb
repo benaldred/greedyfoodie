@@ -8,12 +8,12 @@ describe PostsHelper do
   end
   
   it "link_to_post should return a full permalink for a post" do
-    @post = mock_post(:permalink => "a-title", :year_and_month => ["2009", "06"], :title => "a title")
+    @post = mock_post(:url => "2009/06/a-title", :title => "a title")
     link_to_post(@post).should == '<a href="2009/06/a-title">a title</a>'
   end
   
   it "link_to_post should return a full permalink for a post with a custom title" do
-    @post = mock_post(:permalink => "a-title", :year_and_month => ["2009", "06"], :title => "a title")
+    @post = mock_post(:url => "2009/06/a-title", :title => "a title")
     link_to_post(@post, 'foo bar').should == '<a href="2009/06/a-title">foo bar</a>'
   end
   
@@ -38,7 +38,7 @@ describe PostsHelper do
   
   describe "recent post list" do
     it "should render a list of recent posts" do
-      @recent_posts = [mock_post(:permalink => "a-title", :year_and_month => ["2009", "06"], :title => "a title")]
+      @recent_posts = [mock_post(:url => "2009/06/a-title", :title => "a title")]
      recent_posts.should == "<ul id=\"recent_posts\"><li><a href=\"2009/06/a-title\">a title</a></li></ul>" 
     end                                      
   end

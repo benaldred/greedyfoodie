@@ -40,5 +40,17 @@
       <p>Some footer text and a copy write</p>
     </div>
   </div><!-- #wrapper -->
+  
+<% if Soapbox['google_analytics_api_key'] && Soapbox['web_analytics_on'] %>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker(Soapbox['google_analytics_api_key']);
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<% end %>
 </body>
 </html>

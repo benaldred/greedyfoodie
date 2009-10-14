@@ -1,9 +1,12 @@
 class PostsController < ApplicationController
   
   before_filter :setup_sidebar
+  
+  
     
   def index
     @posts = Post.by_published(:limit => 5)
+    cache_headers(Soapbox['blog_index_page_max_age'], @posts) 
     
     respond_to do |format|
       format.html # index.html.erb
@@ -13,8 +16,10 @@ class PostsController < ApplicationController
   def show
     @post = Post.find_by_permalink(params[:permalink])
     
+    
     respond_to do |format|
       if @post.published? && @post.verify_date?(:month => params[:month], :year => params[:year])
+        cache_headers(Soapbox['blog_post_max_age'], @post, @post.updated_at.utc)
         format.html # show.html.erb
       else
         format.html { redirect_to("/404") }

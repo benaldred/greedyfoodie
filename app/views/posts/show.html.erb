@@ -11,7 +11,7 @@
   </div>
 </div>
 
-  <% if Soapbox['intensedebate_api_key'] %>
+  <% if Soapbox['intensedebate_api_key'] && Soapbox['comments_on'] %>
     <script>
     var idcomments_acct = '<%= Soapbox['intensedebate_api_key'] %>';
     var idcomments_post_id;

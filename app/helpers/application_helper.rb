@@ -25,6 +25,10 @@ module ApplicationHelper
     Soapbox['strapline']
   end
   
+  def blog_description
+    Soapbox['blog_description']
+  end
+  
   def post_preview?
     @post_preview
   end

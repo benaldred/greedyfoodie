@@ -36,5 +36,10 @@ class ApplicationController < ActionController::Base
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
     end
+    
+    def cache_headers(expires, etag, last_modified=nil)
+      expires_in expires, :private => false, :public => true
+      fresh_when :last_modified => last_modified, :etag => etag
+    end
   
 end

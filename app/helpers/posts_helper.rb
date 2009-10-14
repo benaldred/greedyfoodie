@@ -1,8 +1,7 @@
 module PostsHelper
   def link_to_post(post, title=nil)
     post_title = title ||post.title 
-    year, month = post.year_and_month
-    link_to h(post_title), "#{year}/#{month}/#{post.permalink}"
+    link_to h(post_title), post.url
   end
   
   def post_date(post)

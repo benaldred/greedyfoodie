@@ -15,8 +15,7 @@ xml.urlset("xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance", "xsi:sche
   if @posts
     @posts.each do |post|
       xml.url do
-        year, month = post.year_and_month
-        xml.loc post_url(:id => post.permalink, :year => year, :month => month)
+        xml.loc post.url
         xml.lastmod post.updated_at
         xml.changefreq "monthly"
       end
