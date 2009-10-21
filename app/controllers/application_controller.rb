@@ -39,7 +39,8 @@ class ApplicationController < ActionController::Base
     
     def cache_headers(expires, etag, last_modified=nil)
       expires_in expires, :private => false, :public => true
-      fresh_when :last_modified => last_modified, :etag => etag
+     #fresh_when :etag => etag, :public => true
+      #fresh_when :last_modified => last_modified, :public => true
     end
   
 end

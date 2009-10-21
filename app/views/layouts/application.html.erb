@@ -10,20 +10,21 @@
   <%= yield :head %>
 </head>
 <body class="<%= body_class %>">
-  <div id="wrapper" class="clearfix">
     
-      <div id="header" class="clearfix">
-        <div id="navigation"  class="clearfix">
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="/archives">Archives</a></li>
-          </ul>
-        </div><!-- #navigation -->
+    <div id="header" class="clearfix">
+      <div id="navigation"  class="clearfix">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="/archives">Archives</a></li>
+        </ul>
+      </div><!-- #navigation -->
 
-        <h2><%= blog_title %></h2>
-        <%= content_tag(:p, blog_strapline) if blog_strapline %>
-    </div><!-- #header -->
+      <h2><%= blog_title %></h2>
+      <%= content_tag(:p, blog_strapline) if blog_strapline %>
+  </div><!-- #header --> 
+    
+  <div id="wrapper" class="clearfix">
 
     <div id="content"  class="clearfix">
       <div id="p-content">

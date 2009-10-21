@@ -16,10 +16,10 @@ class PostsController < ApplicationController
   def show
     @post = Post.find_by_permalink(params[:permalink])
     
-    
+    cache_headers(Soapbox['blog_post_max_age'], @post, @post.updated_at) 
     respond_to do |format|
       if @post.published? && @post.verify_date?(:month => params[:month], :year => params[:year])
-        cache_headers(Soapbox['blog_post_max_age'], @post, @post.updated_at.utc)
+        
         format.html # show.html.erb
       else
         format.html { redirect_to("/404") }

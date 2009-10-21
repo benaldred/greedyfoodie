@@ -5,20 +5,21 @@ controlling the structure of elements and components and spacing (padding, margi
 No
 - colours, typography
 -------------------------------------------------------------------*/
-
-#header, #wrapper {
-	width: 100%;
+body {
+	background: #000 url(/images/bg_wood2.jpg);
 }
 
-#wrapper {
+#header, #wrapper {
 	width: 60%;
 	margin: 0 20%;
+} 
+
+#wrapper {
+  background: #fff;
 }
 
 #header {
 	margin-bottom: 30px;
-	padding-bottom: 30px;
-	border-bottom:1px solid #CCCCCC;
 }
 
 #footer {

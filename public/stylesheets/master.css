@@ -28,10 +28,13 @@ body {
 }
 
 #header h2 {
-	font-family:Cambria,Georgia,serif;
-	font-size: 600%;
-	color: #464646;
-	font-weight: normal;
+	font-size: 400%;
+	color: #fff;
+	width: 380px;
+	height: 70px;
+	display: block;
+	background: transparent url(/images/gf-title.png);
+	text-indent: -9999px;
 }
 
 #p-content h2 {
