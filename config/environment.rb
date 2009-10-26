@@ -43,3 +43,8 @@ Rails::Initializer.run do |config|
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   config.i18n.default_locale = :en
 end
+
+CouchDB = YAML.load_file("#{RAILS_ROOT}/config/couchdb.yml")[RAILS_ENV]     
+require 'couchrest'
+SERVER = CouchRest.new
+DB = SERVER.database!(CouchDB['database'])
