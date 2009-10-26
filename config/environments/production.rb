@@ -30,4 +30,4 @@ config.action_view.cache_template_loading            = true
 
 require 'couchrest'
 SERVER = CouchRest.new
-DB = SERVER.database!('soapbox')
+DB = SERVER.database!(CouchDB['database'])

@@ -1,0 +1,14 @@
+development:
+  database: soapbox-dev
+  host: localhost 
+  port: 5984
+
+test:
+  database: soapbox-test
+  host: localhost 
+  port: 5984
+
+production:
+  database: soapbox
+  host: localhost 
+  port: 5984
