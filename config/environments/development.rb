@@ -18,4 +18,4 @@ config.action_mailer.raise_delivery_errors = false
 
 require 'couchrest'
 SERVER = CouchRest.new
-DB = SERVER.database!('soapbox-dev')
+DB = SERVER.database!(CouchDB['database'])

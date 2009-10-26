@@ -1,5 +1,23 @@
-blog_title: On The Soapbox
-#strapline: a good one
+development: &development
+  blog_title: Change me
+  #strapline: a good one
+  #blog_description: a good one
 
-# the intense debate key
-#intensedebate_api_key: 
+  # the intense debate key
+  intensedebate_api_key:
+  comments_on: false
+  
+  google_analytics_api_key: UA-597324-7
+  web_analytics_on: false
+
+  # HTTP Caching
+  #
+  # How long do we set the max-age header for
+  blog_post_max_age: 30
+  blog_index_page_max_age: 30
+  
+test:
+  <<: *development
+
+production:
+  <<: *development

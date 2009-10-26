@@ -34,4 +34,4 @@ config.gem 'jscruggs-metric_fu', :version => '1.1.4', :lib => 'metric_fu', :sour
 # set up the couchDB database
 require 'couchrest'
 SERVER = CouchRest.new
-DB = SERVER.database!('soapbox-test')
+DB = SERVER.database!(CouchDB['database'])
