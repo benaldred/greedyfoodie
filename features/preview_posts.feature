@@ -3,16 +3,6 @@ Feature: Preview posts
   As an article writer
   I want to preview a post
   So that I can check it
-  
-  Scenario: preview a new post
-    Given I am logged in as "admin"
-    And I am on the new post page
-    When I fill in "post_title" with "my amazing blog post"
-    And I fill in "post_body" with "some great content"
-    And I press "Preview"
-    Then I should be on the preview page for "my-amazing-blog-post"
-    And I should see the title "my amazing blog post"
-    And I should see "some great content"
     
   Scenario: preview an existing post
     Given I am logged in as "admin"
