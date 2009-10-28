@@ -1,13 +1,15 @@
 class PagesController < ApplicationController
   
   before_filter :setup_sidebar
+  
+  
     
-  def show
+  def show    
     respond_to do |format|
-      #render :template => "weblog/show"
-      
+      format.html { render :action => params[:page] }
     end
   end
+
   
   protected
   

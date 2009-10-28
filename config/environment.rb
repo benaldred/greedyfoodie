@@ -10,7 +10,7 @@ require 'rack/cache'
 
 Rails::Initializer.run do |config|
   config.gem "authlogic"
-  config.gem 'RedCloth'  
+  config.gem 'RedCloth'
 
   config.middleware.use Rack::Cache, :verbose => true, :metastore   => "file:#{RAILS_ROOT}/cache/rack/meta", :entitystore => "file:#{RAILS_ROOT}/cache/rack/body" if RAILS_ENV == 'production'
   # Settings in config/environments/* take precedence over those specified here.
@@ -40,9 +40,4 @@ Rails::Initializer.run do |config|
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   config.i18n.default_locale = :en
-end
-
-CouchDB = YAML.load_file("#{RAILS_ROOT}/config/couchdb.yml")[RAILS_ENV]     
-require 'couchrest'
-SERVER = CouchRest.new
-DB = SERVER.database!(CouchDB['database'])  
+end 

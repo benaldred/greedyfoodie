@@ -29,6 +29,8 @@ module NavigationHelpers
       $1
     when /^the 404 page$/
       "/404"
+    when /^the about page$/
+      "/about"
       
     # Add more mappings here.
     # Here is a more fancy example:

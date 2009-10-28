@@ -30,8 +30,3 @@ config.action_mailer.delivery_method = :test
 config.gem 'selenium-client', :lib => 'selenium/client'  
 config.gem 'webrat'
 config.gem 'jscruggs-metric_fu', :version => '1.1.4', :lib => 'metric_fu', :source => 'http://gems.github.com'
-
-CouchDB = YAML.load_file("#{RAILS_ROOT}/config/couchdb.yml")[RAILS_ENV]     
-require 'couchrest'
-SERVER = CouchRest.new
-DB = SERVER.database!(CouchDB['database'])
