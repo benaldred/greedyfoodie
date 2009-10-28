@@ -1,0 +1,14 @@
+development:
+  database: greedyfoodie-dev
+  host: localhost 
+  port: 5984
+
+test:
+  database: greedyfoodie-test
+  host: localhost 
+  port: 5984
+
+production:
+  database: greedyfoodie
+  host: localhost 
+  port: 5984

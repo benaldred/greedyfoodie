@@ -22,9 +22,9 @@ ssh_options[:forward_agent] = true
 # -----------
 #	git
 # -----------
-set :repository, "git@github.com:benaldred/soapboxes.git"
+set :repository, "git@github.com:benaldred/greedyfoodie.git"
 set :scm, "git"
-set :branch, "greedyfoodie"
+set :branch, "master"
 
 
 role :app, application

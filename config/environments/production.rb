@@ -26,8 +26,3 @@ config.action_view.cache_template_loading            = true
 
 # Enable threaded mode
 # config.threadsafe!
-
-
-require 'couchrest'
-SERVER = CouchRest.new
-DB = SERVER.database!(CouchDB['database'])

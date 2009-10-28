@@ -7,7 +7,7 @@ development: &development
   intensedebate_api_key:
   comments_on: false
   
-  google_analytics_api_key: UA-597324-7
+  google_analytics_api_key: 
   web_analytics_on: false
 
   # HTTP Caching

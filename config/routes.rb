@@ -45,6 +45,8 @@ ActionController::Routing::Routes.draw do |map|
   map.feed '/feed.:format',  :controller => 'syndication', :action => 'feed'
   map.sitemap '/sitemap.:format', :controller => 'syndication', :action => 'sitemap'
   
+  map.about '/about', :controller => 'pages', :action => 'show', :page => 'about'
+  
   map.four_oh_four '/404', :controller => 'posts'
   
 end

@@ -12,18 +12,25 @@ Name: soapbox
 /* blog files */
 @import url('blog.layout.css');
 
+/*
+	palette 
+	brown - #423b36
+	nymph - #4e5756
+	dried dreams - #6f755b
+	superbone - #b59f5c
+	sole - #e89856
+
+*/
+
 /* Soapbox theme
 -------------------------------------------------------------------*/
 
-body {
-	border-top: 5px solid #464646;
-}
-
 #navigation li a {
-	background: #464646;
+	font-family:Georgia,sans-serif;
+	background:#b59f5c;
 	color: #fff;
-	font-weight: bold;
-	font-size: 120%;
+	font-weight: normal;
+	font-size: 140%;
 	text-decoration: none;
 }
 
@@ -37,76 +44,118 @@ body {
 	text-indent: -9999px;
 }
 
-#p-content h2 {
-	font-family:Cambria,Georgia,serif;
-	font-size: 300%;
-	color: #464646;
-	font-weight: normal;
-}
 	
-#p-content ul {
+.p-content ul {
 	margin-left: 18px;
 } 
 
-#p-content p, #p-content li {
-	color:#222;
-	font-family:corbel,'lucida grande',helvetica,sans-serif;
-	font-size:150%;
+.p-content p, .p-content li {
+	color: #1e1e1e;
+	font-size:120%;
 	line-height:1.5;
-	margin-top: 20px;
-	margin-bottom: 40px;
 	margin-bottom: 1.5em;
-} 
+}
+
+a:link {
+color:#ee2507;  
+}
+
+a:visited {
+color:#c40e19;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+/* headers
+-------------------------------------------------------------------*/
+
+/* main header for posts, a post and a page */
+#posts h2, .post h1, .p-content h1 {
+	font-size: 280%;
+	margin-bottom: 5px;
+	color:#423b36;
+	font-family:Cambria,Georgia,serif;  
+	font-weight:normal;
+	letter-spacing:-1px;
+}
+
+.p-content h2 {
+	font-size: 180%;
+	font-family:Cambria,Georgia,serif;  
+	font-weight:normal;
+	letter-spacing:-1px;
+}
 
 /* index page
 -------------------------------------------------------------------*/
-#posts h2 {
-	font-size: 400%;
-	margin-bottom: 20px;
-	text-align: center;
-	color:#000000;
-	font-family:georgia,'bitstream vera sans serif','lucida grande',helvetica,verdana,sans-serif;
-	font-weight:normal;
-	letter-spacing:-0.070em;
-	word-spacing: 0.20em;
+
+#posts h2 a {
+	text-decoration: none;
+	color:#423b36;
 }
 
-	#posts h2 a {
-		border-bottom:1px solid #CCCCCC;
-		color:#009933;
-		padding-bottom:8px;
-		text-decoration: none;
-	}
-
-	#posts h2 a:hover {
-		border-bottom:2px solid #009933;
-	} 
+#posts h2 a:hover {
+	border-bottom:2px solid #b59f5c;
+}
+	
+  
 
 /* post
 -------------------------------------------------------------------*/
-.post h1 {
-	color:#000000;
-	font-family:georgia,'bitstream vera sans serif','lucida grande',helvetica,verdana,sans-serif;
-	font-weight:normal;
-	letter-spacing:-0.070em;
-	word-spacing: 0.20em;
+.post {
+	padding-bottom: 40px;
 }
 
-#p-content h1 {
-	font-size: 400%;
-	margin-bottom: 20px;
-	text-align: center;
-}
+	.post .date {
+		color:#777777;
+		font-family:Arial,Helvetica,sans-serif;  
+		font-size: 200%;
+		margin-bottom: 0.5em;
+	}
 
-.post .date {
-	color:#777777;
-	font-variant:small-caps;
-	font-size: 200%;
-	text-align:center;
-}
+
+	.post h2 {
+		font-size: 220%;
+		font-family:Cambria,Georgia,serif;  
+		font-weight:normal;
+		letter-spacing:-1px;
+		margin-bottom: 0.5em;
+	}
+
+	.post h3 {
+		font-size: 180%;
+		font-family:Cambria,Georgia,serif;  
+		font-weight:normal;
+		letter-spacing:-1px;
+	}
+
+	.post h4, .post h5, .post h6 {
+		font-family:Arial,Helvetica,sans-serif;
+		font-size:150%;
+	} 
+
+	.post h5, .post h6 {
+		font-family:Arial,Helvetica,sans-serif;
+		font-size:120%;
+	}                          
+
 
 /* archives page
 -------------------------------------------------------------------*/
 
-#by_month {
+#by_month h2 {
+	margin-bottom: 0.5em;
+}
+
+.posts_by_month h1, .posts_by_year h1 {
+	 margin-bottom: 2em;
+	 	color:#777777;
+		font-family:Arial,Helvetica,sans-serif;  
+		font-size: 200%;
+}
+
+.posts_by_month h1 strong, .posts_by_year h1 strong {
+	color:#ee2507;
 }
