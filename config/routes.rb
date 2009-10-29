@@ -48,6 +48,8 @@ ActionController::Routing::Routes.draw do |map|
   # pages
   map.page ':page', :controller => 'pages', :action => 'show', :page => /about|contact/
   
-  map.four_oh_four '/404', :controller => 'posts'
   
+  
+  map.four_oh_four '/404', :controller => 'posts'
+  map.connect '*path', :controller => 'pages', :action => 'show', :page => '404' #unless ::ActionController::Base.consider_all_requests_local
 end

@@ -53,8 +53,14 @@ Name: soapbox
 	color: #1e1e1e;
 	font-size:120%;
 	line-height:1.5;
+	margin-bottom: 0.5em;
+}
+
+.p-content p {
 	margin-bottom: 1.5em;
 }
+
+
 
 a:link {
 color:#ee2507;  
@@ -86,6 +92,7 @@ a:hover {
 	font-family:Cambria,Georgia,serif;  
 	font-weight:normal;
 	letter-spacing:-1px;
+	margin-bottom: 0.5em;
 }
 
 /* index page
@@ -159,3 +166,50 @@ a:hover {
 .posts_by_month h1 strong, .posts_by_year h1 strong {
 	color:#ee2507;
 }
+
+
+/* error pages
+-------------------------------------------------------------------*/
+.dialog {
+	width: 100%;
+	background: #fff;
+	padding: 50px;
+} 
+
+	.dialog_content {
+		width: 800px;
+		float:left;
+	}
+	
+	.dialog h1 {
+		font-size: 380%;
+		margin-bottom: 5px;
+		color:#423b36;
+		font-family:Cambria,Georgia,serif;  
+		font-weight:normal;
+		letter-spacing:-1px;
+		margin-bottom: 1em;
+	}
+	
+	.dialog ul {
+		margin-left: 18px;
+	}
+	
+	.dialog p, .dialog li {
+		color: #1e1e1e;
+		font-size:150%;
+		line-height:1.5;
+		margin-bottom: 0.5em;
+	}
+
+	.dialog .subscribe {
+		width: 150px;
+		float:right;
+	}
+	
+	.dialog .subscribe a:link,
+	.dialog .subscribe a:visited {
+		width: 100%;
+	}
+	
+	
