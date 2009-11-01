@@ -1,6 +1,6 @@
 module PostsHelper
   def link_to_post(post, title=nil)
-    post_title = title ||post.title 
+    post_title = title ||post.title
     link_to h(post_title), post.url
   end
   

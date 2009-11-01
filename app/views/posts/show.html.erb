@@ -7,8 +7,20 @@
   <h1><%= h @post.title %></h1>
   <p class="date"><%=  post_date(@post) %></p>
   <div class="body">
+    <div id="tweetmeme"><script type="text/javascript" src="http://tweetmeme.com/i/scripts/button.js"></script></div>
     <%= RedCloth.new(@post.body).to_html %>
   </div>
+</div>
+<div class="social_bookmarks clearfix">
+    <h3>Did you like this article?</h3>
+    <ul>
+      <li><a href="http://twitter.com/home?status=Reading '<%= h @post.title %>' (via @greedyfoodie) <%= @post.shortened_url %>" id="twitter" title="Tweet this!">Tweet this!</a></li>
+      <li><a href="http://www.facebook.com/share.php?u=<%= @post.full_url %>&amp;t=<%= h @post.title %>" id="facebook" title="Facebook this">Facebook</a></li>
+      <li><a href="http://delicious.com/post?url=<%= @post.full_url %>&amp;title=<%= h @post.title %>" id="delicious" title="Bookmark on Delicious">Bookmark on Delicious</a></li>
+      <li><a href="http://www.stumbleupon.com/submit?url=<%= @post.full_url %>&amp;title=<%= h @post.title %>" id="stumbleupon" title="Stumble on Stumbleupon!">Stumble on Stumbleupon</a></li>
+      <li><a href="http://digg.com/submit?phase=2&amp;url=<%= @post.full_url %>&amp;title=<%= h @post.title %>" id="dig" title="Digg it!">Digg it!</a></li>
+      <li><a href="http://buzz.yahoo.com/buzz?targetUrl=<%= @post.full_url %>&amp;title=<%= h @post.title %>" id="yahoobuzz" >Yahoo Buzz</a></li>
+    </ul>
 </div>
 
   <% if Soapbox['intensedebate_api_key'] && Soapbox['comments_on'] %>

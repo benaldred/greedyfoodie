@@ -146,7 +146,49 @@ a:hover {
 	.post h5, .post h6 {
 		font-family:Arial,Helvetica,sans-serif;
 		font-size:120%;
-	}                          
+	}
+	
+#tweetmeme {
+	width: 50px;
+	height: 71px;
+	margin-right: 20px;
+	margin-bottom: 5px;
+	float:left;
+}
+
+.social_bookmarks {
+	margin-bottom: 30px;
+}
+	.social_bookmarks h3 {
+		font-size: 220%;
+		font-weight: normal;
+		margin-bottom: 0.5em;
+	}
+	
+  .p-content .social_bookmarks ul {
+		margin-left:0;
+	}               
+	
+	.social_bookmarks li {
+		float:left;
+		margin-right: 10px;
+		list-style-type: none;
+	}
+	
+	.social_bookmarks li a{
+		width:32px;
+		height: 32px;
+		background-repeat: no-repeat;
+		display:block;
+		text-indent: -9999px;
+	}
+
+#delicious 		{ background-image: url(/images/icons/delicious_32.png);}
+#twitter  		{ background-image: url(/images/icons/twitter_32.png);}
+#facebook     { background-image: url(/images/icons/facebook_32.png);}
+#stumbleupon  { background-image: url(/images/icons/stumbleupon_32.png);}
+#dig          { background-image: url(/images/icons/digg_32.png);}
+#yahoobuzz    { background-image: url(/images/icons/yahoobuzz_32.png);}                      
 
 
 /* archives page

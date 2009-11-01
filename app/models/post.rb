@@ -1,5 +1,6 @@
 class Post < CouchRest::ExtendedDocument
   use_database DB
+  include ActionController::UrlWriter
   include ::CouchRest::Validation
   
   # -------------------
@@ -164,6 +165,17 @@ class Post < CouchRest::ExtendedDocument
   def url
     year, month = year_and_month
     "#{year}/#{month}/#{permalink}"
+  end
+  
+  def full_url
+    default_url_options[:host] = Soapbox['host']
+    root_url + url
+  end
+  
+  def shortened_url
+    bitly = Bitly.new(Soapbox['bitly_api_login'], Soapbox['bitly_api_key'])
+    u = bitly.shorten(full_url)
+    u.short_url
   end
   
   def verify_date?(options = {})
