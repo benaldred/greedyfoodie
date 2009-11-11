@@ -20,6 +20,13 @@ describe ApplicationHelper do
     it "should return classes based on the current controller and action" do
       body_class.should == "foo foo_index" 
     end
+    
+    it "should return page name if a page" do
+      @controller = mock('controller', :controller_name => 'pages', :action_name => 'show')
+      params[:page] = "foo"
+      
+      body_class.should == "pages pages_show foo"
+    end
   end 
   
   describe "document_title" do

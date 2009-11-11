@@ -47,6 +47,7 @@ Name: soapbox
 	
 .p-content ul {
 	margin-left: 18px;
+	margin-bottom: 20px;
 } 
 
 .p-content p, .p-content li {
@@ -78,8 +79,8 @@ a:hover {
 -------------------------------------------------------------------*/
 
 /* main header for posts, a post and a page */
-#posts h2, .post h1, .p-content h1 {
-	font-size: 280%;
+.p-content .post h2, .post h1, .p-content h1 {
+	font-size: 350%;
 	margin-bottom: 5px;
 	color:#423b36;
 	font-family:Cambria,Georgia,serif;  
@@ -123,7 +124,7 @@ a:hover {
 	}
 
 
-	.post h2 {
+	.post .body h2 {
 		font-size: 220%;
 		font-family:Cambria,Georgia,serif;  
 		font-weight:normal;
@@ -253,5 +254,7 @@ a:hover {
 	.dialog .subscribe a:visited {
 		width: 100%;
 	}
-	
-	
+
+/* about page
+-------------------------------------------------------------------*/	
+#thelist .done {text-decoration: line-through;}	

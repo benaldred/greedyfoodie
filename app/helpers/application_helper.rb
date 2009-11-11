@@ -1,7 +1,9 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def body_class
-    "#{controller.controller_name} #{controller.controller_name}_#{controller.action_name}"
+    classes = "#{controller.controller_name} #{controller.controller_name}_#{controller.action_name}"
+    classes += " #{params[:page]}" if controller.controller_name == 'pages'
+    classes
   end
   
   def document_title(sep="-")

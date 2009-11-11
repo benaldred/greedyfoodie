@@ -79,7 +79,8 @@ body {
 		.posts_index #home a,
 		.posts_archives #archives a,
 		.posts_by_month #archives a,
-		.posts_by_year #archives a {
+		.posts_by_year #archives a,
+		.about #about a {
 			font-weight: bold;
 			margin-top: -0.5em;
 			padding: 0.8em 1em 0.8em 1em;

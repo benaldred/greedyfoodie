@@ -9,17 +9,17 @@ describe PostsHelper do
   
   it "link_to_post should return a full permalink for a post" do
     @post = mock_post(:url => "2009/06/a-title", :title => "a title")
-    link_to_post(@post).should == '<a href="2009/06/a-title">a title</a>'
+    link_to_post(@post).should == '<a href="/2009/06/a-title">a title</a>'
   end
   
   it "link_to_post should return a full permalink for a post with a custom title" do
     @post = mock_post(:url => "2009/06/a-title", :title => "a title")
-    link_to_post(@post, 'foo bar').should == '<a href="2009/06/a-title">foo bar</a>'
+    link_to_post(@post, 'foo bar').should == '<a href="/2009/06/a-title">foo bar</a>'
   end
   
   describe "display the posts date" do
     it "should display nicely formatted date" do
-      @post = mock_post(:created_at => "2008/06/24 14:10:27 +0000", :new_record? => false)
+      @post = mock_post(:created_at => "/2008/06/24 14:10:27 +0000", :new_record? => false)
       post_date(@post).should == "24 June 2008"
     end
     
@@ -39,7 +39,14 @@ describe PostsHelper do
   describe "recent post list" do
     it "should render a list of recent posts" do
       @recent_posts = [mock_post(:url => "2009/06/a-title", :title => "a title")]
-     recent_posts.should == "<ul id=\"recent_posts\"><li><a href=\"2009/06/a-title\">a title</a></li></ul>" 
+     recent_posts.should == "<ul id=\"recent_posts\"><li><a href=\"/2009/06/a-title\">a title</a></li></ul>" 
     end                                      
+  end
+  
+  describe "lead content" do
+    it "should replace more comment" do
+      @post = mock_post(:url => "2009/06/a-title", :title => "a title", :body => "<!-- more -->")
+      lead_content(@post).should == "<p><a href=\"/2009/06/a-title\">Read more &#8230;</a></p>"
+    end
   end
 end

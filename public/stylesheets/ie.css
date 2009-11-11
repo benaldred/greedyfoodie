@@ -6,3 +6,15 @@
 
 /* foundations */
 @import url('common/ie_base.css');
+
+#navigation li a {
+	padding: 0.8em 1em 0.8em 1em;   
+}
+
+.posts_index #home a,
+.posts_archives #archives a,
+.posts_by_month #archives a,
+.posts_by_year #archives a,
+.about #about a {
+	padding-bottom: 1.2em;
+}

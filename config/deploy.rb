@@ -15,7 +15,7 @@ default_run_options[:pty] = true
 set :user, "deploy"
 set :use_sudo, false   
 set :port, 10000
-#ssh_options[:keys] = "#{ENV['HOME']}/.ssh/deploy"
+ssh_options[:keys] = "#{ENV['HOME']}/.ssh/deploy"
 ssh_options[:forward_agent] = true
 #ssh_options[:verbose] = :debug
 

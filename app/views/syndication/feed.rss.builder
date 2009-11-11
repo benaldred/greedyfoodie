@@ -11,7 +11,7 @@ xml.rss :version => "2,0" do
         xml.item do
           xml.title post.title
           xml.link post.url
-          xml.description post.body
+          xml.description  RedCloth.new(post.body).to_html
           xml.pubDate post.created_at
           xml.guid post.url
         end

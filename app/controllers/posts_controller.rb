@@ -55,8 +55,9 @@ class PostsController < ApplicationController
   protected
   
   def setup_sidebar
-   if request.format.to_sym == :html  
-      @recent_posts = Post.by_published(:limit => 5)
+    
+    respond_to do |format|
+      format.html{ @recent_posts = Post.by_published(:limit => 5) }
     end
   end
 end

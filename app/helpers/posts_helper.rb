@@ -1,7 +1,7 @@
 module PostsHelper
   def link_to_post(post, title=nil)
     post_title = title ||post.title
-    link_to h(post_title), post.url
+    link_to h(post_title), "/" + post.url
   end
   
   def post_date(post)
@@ -25,9 +25,15 @@ module PostsHelper
     RedCloth.new(content).to_html
   end
   
+  def lead_content(post)
+    # search through replace the <!-- more --> with a link and not display the rest
+    content = post.body.gsub(/<!-- more -->.*$/m, link_to_post(post, 'Read more ...'))
+    RedCloth.new(content).to_html
+  end
+  
   def recent_posts
     content_tag(:ul,
       @recent_posts.collect { |post| content_tag(:li, link_to_post(post)) }.join("\n"),
-      :id => "recent_posts")
+      :id => "recent_posts") if @recent_posts
   end
 end
