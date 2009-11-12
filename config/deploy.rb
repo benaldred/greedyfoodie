@@ -5,7 +5,14 @@ Dir['config/capistrano/recipes/*.rb'].each { |r| load(r) }
 #	App
 # -----------
 set :application, "greedyfoodie.com"
-set :deploy_to, "/var/www/sites/#{application}" 
+set :deploy_to, "/var/www/sites/#{application}"
+
+# -----------
+#	git
+# -----------
+set :repository, "git@github.com:benaldred/greedyfoodie.git"
+set :scm, "git"
+set :branch, "master" 
 
 
 # -----------
@@ -15,16 +22,12 @@ default_run_options[:pty] = true
 set :user, "deploy"
 set :use_sudo, false   
 set :port, 10000
-ssh_options[:keys] = "#{ENV['HOME']}/.ssh/deploy"
-ssh_options[:forward_agent] = true
+#ssh_options[:keys] = "#{ENV['HOME']}/.ssh/id_dsa"
+#ssh_options[:forward_agent] = true
 #ssh_options[:verbose] = :debug
+set :deploy_via, :copy
 
-# -----------
-#	git
-# -----------
-set :repository, "git@github.com:benaldred/greedyfoodie.git"
-set :scm, "git"
-set :branch, "master"
+
 
 
 role :app, application
@@ -51,8 +54,13 @@ namespace :deploy do
   
   task :do_symlinks, :roles => [:app] do
    # create a symbolic link to our directories in shared
-   run "ln -s #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-   run "ln -s #{shared_path}/config/soapbox.yml #{release_path}/config/soapbox.yml"
+   run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+   run "ln -nfs #{shared_path}/config/soapbox.yml #{release_path}/config/soapbox.yml"
+   
+   # craete link to share sqlite3 db and schema file
+   run "ln -nfs #{shared_path}/db/production.sqlite3 #{release_path}/db/production.sqlite3"
+   run "ln -nfs #{shared_path}/db/schema.rb #{release_path}/db/schema.rb"  
+                                                               
   end
       
   after "deploy:update_code", 'deploy:do_symlinks' 
