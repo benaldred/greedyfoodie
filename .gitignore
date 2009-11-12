@@ -8,3 +8,4 @@ coverage/*
 config/soapbox.yml
 config/couchdb.yml
 cache/*
+db/schema.rb
