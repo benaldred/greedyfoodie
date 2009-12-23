@@ -15,7 +15,7 @@ xml.urlset("xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance", "xsi:sche
   if @posts
     @posts.each do |post|
       xml.url do
-        xml.loc post.url
+        xml.loc post.full_url
         xml.lastmod post.updated_at
         xml.changefreq "monthly"
       end
