@@ -149,13 +149,13 @@ a:hover {
 		font-size:120%;
 	}
 	
-	.post img.left {
-		float:left;
-		margin-left: 0;
-	}
-	
 	.post img.small { /* based on flickr size */
 		margin: 0 10px 10px 10px;
+	}
+	
+  .post img.left {
+		float:left;
+		margin-left: 0;
 	}
 	
 	.post img {
