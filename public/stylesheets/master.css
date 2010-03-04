@@ -149,6 +149,19 @@ a:hover {
 		font-size:120%;
 	}
 	
+	.post img.left {
+		float:left;
+		margin-left: 0;
+	}
+	
+	.post img.small { /* based on flickr size */
+		margin: 0 10px 10px 10px;
+	}
+	
+	.post img {
+		border:5px solid #E0E0D5;
+	}
+	
 #tweetmeme {
 	width: 50px;
 	height: 71px;
