@@ -43,16 +43,23 @@
       </div>
     </div>
   </div><!-- #wrapper -->
-<% if Soapbox['google_analytics_api_key'] && Soapbox['web_analytics_on'] %>    
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker(<%= Soapbox['google_analytics_api_key'] %>);
-pageTracker._trackPageview();
-} catch(err) {}</script>
+<% if Soapbox['web_analytics_on'] %> 
+  <% if Soapbox['google_analytics_api_key'] %>    
+    <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+    var pageTracker = _gat._getTracker(<%= Soapbox['google_analytics_api_key'] %>);
+    pageTracker._trackPageview();
+    } catch(err) {}</script>
+  <% end %>
+
+  <a title="Clicky Web Analytics" href="http://getclicky.com/191028"><img alt="Clicky Web Analytics" src="http://static.getclicky.com/media/links/badge.gif" border="0" /></a>
+  <script src="http://static.getclicky.com/js" type="text/javascript"></script>
+  <script type="text/javascript">clicky.init(191028);</script>
+  <noscript><p><img alt="Clicky" width="1" height="1" src="http://static.getclicky.com/191028ns.gif" /></p></noscript>
 <% end %>
 </body>
 </html>
