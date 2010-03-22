@@ -12,7 +12,8 @@ set :deploy_to, "/var/www/sites/#{application}"
 # -----------
 set :repository, "git@github.com:benaldred/greedyfoodie.git"
 set :scm, "git"
-set :branch, "master" 
+set :branch, "master"
+set :deploy_via, :remote_cache 
 
 
 # -----------
@@ -22,10 +23,9 @@ default_run_options[:pty] = true
 set :user, "deploy"
 set :use_sudo, false   
 set :port, 10000
-#ssh_options[:keys] = "#{ENV['HOME']}/.ssh/id_dsa"
-#ssh_options[:forward_agent] = true
-#ssh_options[:verbose] = :debug
-set :deploy_via, :copy
+
+ssh_options[:forward_agent] = true
+
 
 
 
